@@ -1,0 +1,36 @@
+
+//Required: 表示是一个必须字段
+//Optional：表示是一个可选字段
+//Repeated：表示该字段可以包含0~N个元素
+
+package cs;
+//消息Id
+enum EnmCmdID
+{
+	CS_LOGIN_REQ = 10001;//登录请求协议号
+	CS_LOGIN_RES = 10002;//登录请求回包协议号
+}
+//消息内部结构
+message CSMessageHeard
+{
+	required uint32 TypeId = 1;//消息Id
+	required uint32 Leng = 2;//消息长度
+}
+message CSLoginInfo
+{
+	required string UserName = 1;//账号
+	required string Password = 2;//密码
+}
+
+//消息请求
+//发送登录请求
+message CSLoginReq
+{
+	required CSMessageHeard MessageHeard = 2;
+	required CSLoginInfo LoginInfo = 1;
+}
+//登录请求回包数据
+message CSLoginRes
+{
+	required uint32 result_code = 1;
+}

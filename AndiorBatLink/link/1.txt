@@ -1,0 +1,31 @@
+--------- beginning of system
+--------- beginning of main
+04-24 22:09:37.327 18788 18807 E Unity   : LuaError: LuaError: xLua exception : xlua.access, no field __Hotfix0_TestHotfix
+04-24 22:09:37.327 18788 18807 E Unity   : stack traceback:
+04-24 22:09:37.327 18788 18807 E Unity   : 	[C]: in field 'access'
+04-24 22:09:37.327 18788 18807 E Unity   : 	[string "Init"]:101: in field 'hotfix'
+04-24 22:09:37.327 18788 18807 E Unity   : 	XLua/Hotfix/HotfixTest.lua:25: in function 'XLua.Hotfix.HotfixTest.Register'
+04-24 22:09:37.327 18788 18807 E Unity   : 	XLua/HotfixMain.lua:17: in function 'XLua.HotfixMain.Start'
+04-24 22:09:37.327 18788 18807 E Unity   : 	[string "chunk"]:1: in main chunk
+04-24 22:09:37.327 18788 18807 E Unity   :    at XLua.LuaEnv.ThrowExceptionFromError (System.Int32 oldTop) [0x00050] in <5aa372b8e5ab466ea796dc7c78541bc2>:0 
+04-24 22:09:37.327 18788 18807 E Unity   :   at XLua.LuaEnv.DoString (System.Byte[] chunk, System.String chunkName, XLua.LuaTable env) [0x00072] in <5aa372b8e5ab466ea796dc7c78541bc2>:0 
+04-24 22:09:37.327 18788 18807 E Unity   :   at XLua.LuaEnv.DoString (System.String chunk, System.String chunkName, XLua.LuaTable env) [0x0000c] in <5aa372b8e5ab466ea796dc7c78541bc2>:0 
+04-24 22:09:37.327 18788 18807 E Unity   :   at XLuaManager.SafeDoString (System.String scriptContent) [0x00008] in <5aa372b8e5ab466ea796dc7c78541bc2>:0  
+04-24 22:09:37.327 18788 18807 E Unity   : 
+04-24 22:09:37.327 18788 18807 E Unity   :  
+04-24 22:09:37.327 18788 18807 E Unity   : (Filename: ./Runtime/Export/Debug/Debug.bindings.h Line: 35)
+04-24 22:09:37.327 18788 18807 E Unity   : 
+04-24 22:09:37.327 18788 18807 E Unity   : LuaError: xLua exception : xlua.access, no field __Hotfix0_TestHotfix
+04-24 22:09:37.327 18788 18807 E Unity   : stack traceback:
+04-24 22:09:37.327 18788 18807 E Unity   : 	[C]: in field 'access'
+04-24 22:09:37.327 18788 18807 E Unity   : 	[string "Init"]:101: in field 'hotfix'
+04-24 22:09:37.327 18788 18807 E Unity   : 	XLua/Hotfix/HotfixTest.lua:25: in function 'XLua.Hotfix.HotfixTest.Register'
+04-24 22:09:37.327 18788 18807 E Unity   : 	XLua/HotfixMain.lua:17: in function 'XLua.HotfixMain.Start'
+04-24 22:09:37.327 18788 18807 E Unity   : 	[string "chunk"]:1: in main chunk
+04-24 22:09:37.327 18788 18807 E Unity   :    at XLua.LuaEnv.ThrowExceptionFromError (System.Int32 oldTop) [0x00050] in <5aa372b8e5ab466ea796dc7c78541bc2>:0 
+04-24 22:09:37.327 18788 18807 E Unity   :   at XLua.LuaEnv.DoString (System.Byte[] chunk, System.String chunkName, XLua.LuaTable env) [0x00072] in <5aa372b8e5ab466ea796dc7c78541bc2>:0 
+04-24 22:09:37.327 18788 18807 E Unity   :   at XLua.LuaEnv.DoString (System.String chunk, System.String chunkName, XLua.LuaTable env) [0x0000c] in <5aa372b8e5ab466ea796dc7c78541bc2>:0 
+04-24 22:09:37.327 18788 18807 E Unity   :   at XLuaManager.SafeDoString (System.String scriptContent) [0x00008] in <5aa372b8e5ab466ea796dc7c78541bc2>:0 
+04-24 22:09:37.327 18788 18807 E Unity   :  
+04-24 22:09:37.327 18788 18807 E Unity   : (Filename: ./Runtime/Export/Debug/Debug.bindings.h Line: 35)
+04-24 22:09:37.327 18788 18807 E Unity   : 

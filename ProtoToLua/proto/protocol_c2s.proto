@@ -1,0 +1,43 @@
+package cs;
+//测试
+//required: 表示是一个必须字段
+//optional：表示是一个可选字段
+//oepeated：表示该字段可以包含0~N个元素
+message req_login
+{
+	optional int32 flag = 1;
+}
+//消息Id
+enum EnmCmdID
+{
+	CS_LOGIN_REQ = 10001;//登录请求协议号
+	CS_LOGIN_RES = 10002;//登录请求回包协议号
+}
+//消息内部结构
+message CSMessage
+{
+	required uint32 TypeId = 1;//消息Id
+	required bytes Data = 2;//消息
+}
+message CSLoginInfo
+{
+    required string UserName = 1;//账号
+	required string Password = 2;//密码
+}
+
+//消息请求
+//发送登录请求
+message CSLoginReq
+{
+	required string UserName = 1;//账号
+	required string Password = 2;//密码
+	repeated uint32 IDList=3;//IDList
+}
+//登录请求回包数据
+message CSLoginRes
+{
+	required uint32 result_code = 1;
+}
+
+
+
