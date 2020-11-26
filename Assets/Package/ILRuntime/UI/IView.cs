@@ -14,7 +14,7 @@ public interface IView
 
     void OnDisable();
 
-    void OnDestory();
+    void OnDestroy();
 
     void SetGameObject(GameObject go);
 
