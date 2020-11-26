@@ -81,6 +81,8 @@ public class GameLaunch : MonoBehaviour
         XLuaManager.Instance.StartHotfix();
         Logger.Log(string.Format("XLuaManager StartHotfix use {0}ms", (DateTime.Now - start).Milliseconds));
 
+        yield return LoadHotFixAssembly();
+
         // 初始化UI界面
         yield return InitLaunchPrefab();
         yield return null;
@@ -249,5 +251,123 @@ public class GameLaunch : MonoBehaviour
             Logger.LogError("Go Tools/Package to specify any machine as local server!!!");
         }
         return string.Empty;
+    }
+
+
+    IEnumerator LoadHotFixAssembly()
+    {
+#if UNITY_ANDROID
+        WWW www = new WWW(Application.streamingAssetsPath + "/HotFix_Project.dll");
+#else
+        WWW www = new WWW("file:///" + Application.streamingAssetsPath + "/HotFix_Project.dll");
+#endif
+        while (!www.isDone)
+            yield return null;
+        if (!string.IsNullOrEmpty(www.error))
+            UnityEngine.Debug.LogError(www.error);
+        byte[] dll = www.bytes;
+        www.Dispose();
+
+        //PDB文件是调试数据库，如需要在日志中显示报错的行号，则必须提供PDB文件，不过由于会额外耗用内存，正式发布时请将PDB去掉，下面LoadAssembly的时候pdb传null即可
+#if UNITY_ANDROID
+        www = new WWW(Application.streamingAssetsPath + "/HotFix_Project.pdb");
+#else
+        www = new WWW("file:///" + Application.streamingAssetsPath + "/HotFix_Project.pdb");
+#endif
+        while (!www.isDone)
+            yield return null;
+        if (!string.IsNullOrEmpty(www.error))
+            UnityEngine.Debug.LogError(www.error);
+        byte[] pdb = www.bytes;
+       
+        try
+        {
+            HotFixMangager.instance.InitApp(dll,pdb);
+        }
+        catch
+        {
+            Debug.LogError("加载热更DLL失败，请确保已经通过VS打开Assets/Samples/ILRuntime/1.6/Demo/HotFix_Project/HotFix_Project.sln编译过热更DLL");
+        }
+
+        InitializeILRuntime();
+        OnHotFixLoaded();
+    }
+
+    void InitializeILRuntime()
+    {
+#if DEBUG && (UNITY_EDITOR || UNITY_ANDROID || UNITY_IPHONE)
+        //由于Unity的Profiler接口只允许在主线程使用，为了避免出异常，需要告诉ILRuntime主线程的线程ID才能正确将函数运行耗时报告给Profiler
+        HotFixMangager.instance.GetAppDomain().UnityMainThreadID = System.Threading.Thread.CurrentThread.ManagedThreadId;
+#endif
+        //打开调试
+        HotFixMangager.instance.GetAppDomain().DebugService.StartDebugService(56000);
+        //这里做一些ILRuntime的注册，HelloWorld示例暂时没有需要注册的
+    }
+
+    void OnHotFixLoaded()
+    {
+        //HelloWorld，第一次方法调用
+        HotFixMangager.instance.GetAppDomain().Invoke("HotFix_Project.InstanceClass", "StaticFunTest", null, null);
+
+    }
+
+    List<T> LoadUI<T>(string realPath,int num,string className)where T:IView
+    {
+        GameObject go = null;
+        try
+        {
+           // go =;
+            //todo 实例化
+        }
+        catch (Exception e)
+        {
+
+            Debug.LogError(e);
+        }
+        if (null == go)
+        {
+            return new List<T>();
+        }
+
+        List<T> list = new List<T>();
+        for (int i = 0; i <num; i++)
+        {
+            GameObject gameObject = GameObject.Instantiate(go) as GameObject;
+#if UNITY_EDITOR
+
+#endif
+            if (typeof(T) == typeof(IViewAdaptor.Adaptor))
+            {
+
+                MonoView view = gameObject.GetComponent<MonoView>();
+                view.AddView(className);
+
+                list.Add((T)view.View);
+            }
+            else
+            {
+                MonoView view = gameObject.GetComponent<MonoView>();
+                if (null != view)
+                {
+                    T t = Activator.CreateInstance<T>();
+                    view.AddView((IView)t);
+                    list.Add(t);
+                }
+                else
+                {
+                    list.Add(gameObject.GetComponent<T>());
+                }
+            }
+            UIObject uiObj = gameObject.GetComponent<UIObject>();
+            if (uiObj == null)
+            {
+                uiObj = gameObject.AddComponent<UIObject>();
+            }
+            uiObj.OnInStanceWitAsset(realPath);
+            uiObj.obj = gameObject;
+        }
+       // 实例化
+       
+        return list;
     }
 }
