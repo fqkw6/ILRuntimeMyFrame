@@ -61,10 +61,7 @@ public abstract class UIPanelBase : Mediator
     /// </summary>
     private Transform m_Transform;
 
-    /// <summary>
-    /// 热键的自动ID
-    /// </summary>
-    private int m_HotkeyAutoID = 0;
+    
     /// <summary>
     /// 关闭时
     /// </summary>
