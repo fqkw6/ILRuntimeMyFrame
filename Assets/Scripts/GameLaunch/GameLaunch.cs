@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using UnityEngine.UI;
+
 [Hotfix]
 [LuaCallCSharp]
 public class GameLaunch : MonoBehaviour
@@ -18,7 +20,6 @@ public class GameLaunch : MonoBehaviour
     GameObject launchPrefab;
     GameObject noticeTipPrefab;
     AssetbundleUpdater updater;
-
 
     /// <summary>
     /// 游戏启动时调用（仅只一次）
