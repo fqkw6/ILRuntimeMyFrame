@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using ProtoBuf;
 using System.IO;
 //using tnt_deploy;
 
@@ -12,15 +11,15 @@ public class Test : MonoBehaviour {
 
     public static T ReadOneDataConfig<T>(string FileName)
     {
-        FileStream fileStream;
-        fileStream = GetDataFileStream(FileName);
-        if (null != fileStream)
-        {
-            Debug.LogError("0000===" + typeof(T));
-            T t = Serializer.Deserialize<T>(fileStream);
-            fileStream.Close();
-            return t;
-        }
+        //FileStream fileStream;
+        //fileStream = GetDataFileStream(FileName);
+        //if (null != fileStream)
+        //{
+        //    Debug.LogError("0000===" + typeof(T));
+        ////    T t = Serializer.Deserialize<T>(fileStream);
+        //    fileStream.Close();
+        //    return t;
+        //}
 
         return default(T);
     }

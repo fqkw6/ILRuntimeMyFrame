@@ -5,7 +5,7 @@ using ILRuntime.Runtime.Enviorment;
 using ILRuntime.Runtime.Intepreter;
 using ILRuntime.CLR.Method;
 using System;
-
+[ILAdapter]
 public class IViewBaseAdaptor : CrossBindingAdaptor
 {
     public override Type BaseCLRType

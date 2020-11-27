@@ -14,13 +14,8 @@ namespace ILRuntime.Runtime.Generated
         /// </summary>
         public static void Initialize(ILRuntime.Runtime.Enviorment.AppDomain app)
         {
-            UnityEngine_Component_Binding.Register(app);
-            UnityEngine_Canvas_Binding.Register(app);
-            UnityEngine_UI_CanvasScaler_Binding.Register(app);
-            UnityEngine_Vector2_Binding.Register(app);
-            UnityEngine_LayerMask_Binding.Register(app);
             UnityEngine_GameObject_Binding.Register(app);
-            UnityEngine_CanvasGroup_Binding.Register(app);
+            UnityEngine_LayerMask_Binding.Register(app);
             UnityEngine_Camera_Binding.Register(app);
             System_Object_Binding.Register(app);
             System_Type_Binding.Register(app);
@@ -29,10 +24,13 @@ namespace ILRuntime.Runtime.Generated
             UnityEngine_Debug_Binding.Register(app);
             UnityEngine_Object_Binding.Register(app);
             System_Collections_Generic_Dictionary_2_String_GameObject_Binding.Register(app);
+            UnityEngine_Component_Binding.Register(app);
             UnityEngine_Transform_Binding.Register(app);
+            UnityEngine_Canvas_Binding.Register(app);
+            UnityEngine_UI_CanvasScaler_Binding.Register(app);
+            UnityEngine_Vector2_Binding.Register(app);
+            UnityEngine_CanvasGroup_Binding.Register(app);
             UIMangager_Binding.Register(app);
-            Test_Binding.Register(app);
-            System_Collections_Generic_List_1_IExtensibleAdapter_Binding_Adaptor_Binding.Register(app);
             System_String_Binding.Register(app);
             System_Collections_Generic_List_1_Int32_Binding.Register(app);
             CLRBindingTestClass_Binding.Register(app);
@@ -67,8 +65,6 @@ namespace ILRuntime.Runtime.Generated
             System_Collections_Generic_List_1_ILTypeInstance_Binding_Enumerator_Binding.Register(app);
             System_IDisposable_Binding.Register(app);
             System_Collections_Generic_IList_1_ILTypeInstance_Binding.Register(app);
-            ProtoBuf_Extensible_Binding.Register(app);
-            System_Collections_Generic_List_1_UInt32_Binding.Register(app);
 
             ILRuntime.CLR.TypeSystem.CLRType __clrType = null;
             __clrType = (ILRuntime.CLR.TypeSystem.CLRType)app.GetType (typeof(UnityEngine.Vector3));

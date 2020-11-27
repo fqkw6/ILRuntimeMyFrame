@@ -5,6 +5,9 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 using ILRuntimeDemo;
+using System.Reflection;
+using ILRuntime.Runtime.Enviorment;
+
 [System.Reflection.Obfuscation(Exclude = true)]
 public class ILRuntimeCLRBinding
 {
@@ -54,12 +57,33 @@ public class ILRuntimeCLRBinding
     static void InitILRuntime(ILRuntime.Runtime.Enviorment.AppDomain domain)
     {
         //这里需要注册所有热更DLL中用到的跨域继承Adapter，否则无法正确抓取引用
-        domain.RegisterCrossBindingAdaptor(new MonoBehaviourAdapter());
-        domain.RegisterCrossBindingAdaptor(new CoroutineAdapter());
-        domain.RegisterCrossBindingAdaptor(new TestClassBaseAdapter());
         domain.RegisterValueTypeBinder(typeof(Vector3), new Vector3Binder());
-        domain.RegisterCrossBindingAdaptor(new IViewBaseAdaptor());
-        domain.RegisterCrossBindingAdaptor(new IExtensibleAdapter());
+
+        //domain.RegisterCrossBindingAdaptor(new MonoBehaviourAdapter());
+        //domain.RegisterCrossBindingAdaptor(new CoroutineAdapter());
+        //domain.RegisterCrossBindingAdaptor(new TestClassBaseAdapter());
+        //domain.RegisterCrossBindingAdaptor(new IViewBaseAdaptor());
+        //domain.RegisterCrossBindingAdaptor(new IExtensibleAdapter());
+
+        // 注册适配器
+        Assembly assembly = typeof(GameLaunch).Assembly;
+        foreach (Type type in assembly.GetTypes())
+        {
+            object[] attrs = type.GetCustomAttributes(typeof(ILAdapterAttribute), false);
+            if (attrs.Length == 0)
+            {
+                continue;
+            }
+
+            object obj = Activator.CreateInstance(type);
+            CrossBindingAdaptor adaptor = obj as CrossBindingAdaptor;
+            if (adaptor == null)
+            {
+                continue;
+            }
+
+            domain.RegisterCrossBindingAdaptor(adaptor);
+        }
     }
 }
 #endif

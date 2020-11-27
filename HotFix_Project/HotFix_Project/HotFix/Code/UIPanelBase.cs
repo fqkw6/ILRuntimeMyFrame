@@ -154,7 +154,7 @@ public abstract class UIPanelBase : Mediator ,IViewBase
         {
             return result.GetComponent<T>();
         }
-        return default;
+        return default(T);
     }
 
     /// <summary>
@@ -238,22 +238,22 @@ public abstract class UIPanelBase : Mediator ,IViewBase
     }
 
 
-    public void Awake()
+    public virtual void Awake()
     {
         
     }
 
-    public void OnEnable()
+    public virtual void OnEnable()
     {
         
     }
 
-    public void Start()
+    public virtual void Start()
     {
         
     }
 
-    public void OnDisable()
+    public virtual void OnDisable()
     {
        
     }
@@ -261,15 +261,15 @@ public abstract class UIPanelBase : Mediator ,IViewBase
 
     public void SetGameObject(GameObject go)
     {
-        m_GameObject = go;
+        SetGameObjectAndTransform(go);
     }
 
-    public void OnDestroy()
+    public virtual void OnDestroy()
     {
         
     }
 
-    public void Update()
+    public virtual void Update()
     {
        
     }

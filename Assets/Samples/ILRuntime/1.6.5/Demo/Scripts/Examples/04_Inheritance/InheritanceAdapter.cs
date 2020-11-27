@@ -5,6 +5,7 @@ using ILRuntime.Runtime.Intepreter;
 
 namespace ILRuntimeDemo
 {   
+    [ILAdapter]
     public class TestClassBaseAdapter : CrossBindingAdaptor
     {
         static CrossBindingFunctionInfo<System.Int32> mget_Value_0 = new CrossBindingFunctionInfo<System.Int32>("get_Value");

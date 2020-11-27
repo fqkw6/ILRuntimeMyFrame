@@ -1,8 +1,6 @@
-﻿using ProtoBuf;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using tnt_deploy;
 using UnityEngine;
 namespace HotFix_Project
 {
@@ -33,24 +31,7 @@ namespace HotFix_Project
             UnityEngine.Debug.Log("!!! InstanceClass.Stat55555555icFunTest()");
 
             UIMangager.OpenPanel<LoginPanel>("UI/Prefabs/View/UILaunch.prefab", "LoginPanel", null,null);
-
-            GOODS_INFO_ARRAY goods_infos = ReadOneDataConfig<GOODS_INFO_ARRAY>("goods_info");
-            Debug.Log("goods_id==================" + goods_infos.items[0].goods_id);
-        }
-        public static T ReadOneDataConfig<T>(string FileName)
-        {
-            FileStream fileStream;
-            fileStream = Test. GetDataFileStream(FileName);
-            if (null != fileStream)
-            {
-                Debug.LogError("0000===" + typeof(T));
-                Type type = typeof(T);
-                T t = Serializer.Deserialize<T>(fileStream);
-                fileStream.Close();
-                return t;
-            }
-
-            return default(T);
+            TestPB.Start();
         }
         public static void StaticFunTest2(int a)
         {

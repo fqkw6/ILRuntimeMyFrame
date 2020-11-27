@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using AppDomain = ILRuntime.Runtime.Enviorment.AppDomain;
 using System.IO;
+using System.Reflection;
+using System;
+using ILRuntime.Runtime.Enviorment;
 
 public class HotFixMangager : Singleton<HotFixMangager>
 {
@@ -43,7 +46,11 @@ public class HotFixMangager : Singleton<HotFixMangager>
     private void RegisterDelegates()
     {
         mAppDomain.DelegateManager.RegisterMethodDelegate<IViewBaseAdaptor.Adaptor>();
-        mAppDomain.DelegateManager.RegisterMethodDelegate<IExtensibleAdapter.Adaptor>();
+
+        mAppDomain.DelegateManager.RegisterFunctionDelegate<Adapt_IMessage.Adaptor>();
+        mAppDomain.DelegateManager.RegisterMethodDelegate<Adapt_IMessage.Adaptor>();
+
+        mAppDomain.DelegateManager.RegisterFunctionDelegate<System.Int32, System.Int32>();
     }
     /// <summary>
     /// 注册所有热更DLL中用到的跨域继承Adapter，否则无法正确抓取引用
@@ -51,12 +58,32 @@ public class HotFixMangager : Singleton<HotFixMangager>
     private void RegisterCrossBindingAdaptor()
     {
         //这里需要注册所有热更DLL中用到的跨域继承Adapter，否则无法正确抓取引用
-        mAppDomain.RegisterCrossBindingAdaptor(new MonoBehaviourAdapter());
-        mAppDomain.RegisterCrossBindingAdaptor(new CoroutineAdapter());
+       // mAppDomain.RegisterCrossBindingAdaptor(new MonoBehaviourAdapter());
+        //mAppDomain.RegisterCrossBindingAdaptor(new CoroutineAdapter());
 
         mAppDomain.RegisterValueTypeBinder(typeof(Vector3), new Vector3Binder());
-        mAppDomain.RegisterCrossBindingAdaptor(new IViewBaseAdaptor());
-        mAppDomain.RegisterCrossBindingAdaptor(new IExtensibleAdapter());
+       // mAppDomain.RegisterCrossBindingAdaptor(new IViewBaseAdaptor());
+
+        // 注册适配器
+        Assembly assembly = typeof(GameLaunch).Assembly;
+        foreach (Type type in assembly.GetTypes())
+        {
+            object[] attrs = type.GetCustomAttributes(typeof(ILAdapterAttribute), false);
+            if (attrs.Length == 0)
+            {
+                continue;
+            }
+
+            object obj = Activator.CreateInstance(type);
+            CrossBindingAdaptor adaptor = obj as CrossBindingAdaptor;
+            if (adaptor == null)
+            {
+                continue;
+            }
+
+            mAppDomain.RegisterCrossBindingAdaptor(adaptor);
+        }
+
     }
 
 
