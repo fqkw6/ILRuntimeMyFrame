@@ -1,3 +1,4 @@
+assetsmap_bytes.assetbundle,AssetsMap.bytes
 effect/common.assetbundle,Effect/Common/Materials/models_fx_R.mat
 effect/common.assetbundle,Effect/Common/Materials/models_fx_RGB.mat
 effect/common.assetbundle,Effect/Common/Texture/Matcap_Encode2.png
@@ -223,3 +224,4 @@ ui/spriteatlas/group_spriteatlas.assetbundle,UI/SpriteAtlas/Group.spriteatlas
 ui/spriteatlas/hyper_spriteatlas.assetbundle,UI/SpriteAtlas/Hyper.spriteatlas
 ui/spriteatlas/login_spriteatlas.assetbundle,UI/SpriteAtlas/Login.spriteatlas
 ui/spriteatlas/role_spriteatlas.assetbundle,UI/SpriteAtlas/Role.spriteatlas
+variantsmap_bytes.assetbundle,VariantsMap.bytes

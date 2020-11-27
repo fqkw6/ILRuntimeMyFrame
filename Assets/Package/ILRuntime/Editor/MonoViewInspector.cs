@@ -5,7 +5,7 @@ using UnityEditor;
 
 [CanEditMultipleObjects]
 [CustomEditor(typeof(MonoView), true)]
-public class MonoViewInspector : Editor
+public class MonoViewInspector : UnityEditor.Editor
 {
     public class ObjecctType
     {
