@@ -253,44 +253,68 @@ public class GameLaunch : MonoBehaviour
         return string.Empty;
     }
 
-
+    bool s = true;
     IEnumerator LoadHotFixAssembly()
     {
+        if (s)
+        {
 #if UNITY_ANDROID
-        WWW www = new WWW(Application.streamingAssetsPath + "/HotFix_Project.dll");
+            WWW www = new WWW(Application.streamingAssetsPath + "/HotFix_Project.dll");
 #else
         WWW www = new WWW("file:///" + Application.streamingAssetsPath + "/HotFix_Project.dll");
 #endif
-        while (!www.isDone)
-            yield return null;
-        if (!string.IsNullOrEmpty(www.error))
-            UnityEngine.Debug.LogError(www.error);
-        byte[] dll = www.bytes;
-        www.Dispose();
+            while (!www.isDone)
+                yield return null;
+            if (!string.IsNullOrEmpty(www.error))
+                UnityEngine.Debug.LogError(www.error);
+            byte[] dll = www.bytes;
+            www.Dispose();
 
-        //PDB文件是调试数据库，如需要在日志中显示报错的行号，则必须提供PDB文件，不过由于会额外耗用内存，正式发布时请将PDB去掉，下面LoadAssembly的时候pdb传null即可
+            //PDB文件是调试数据库，如需要在日志中显示报错的行号，则必须提供PDB文件，不过由于会额外耗用内存，正式发布时请将PDB去掉，下面LoadAssembly的时候pdb传null即可
 #if UNITY_ANDROID
-        www = new WWW(Application.streamingAssetsPath + "/HotFix_Project.pdb");
+            www = new WWW(Application.streamingAssetsPath + "/HotFix_Project.pdb");
 #else
         www = new WWW("file:///" + Application.streamingAssetsPath + "/HotFix_Project.pdb");
 #endif
-        while (!www.isDone)
-            yield return null;
-        if (!string.IsNullOrEmpty(www.error))
-            UnityEngine.Debug.LogError(www.error);
-        byte[] pdb = www.bytes;
-       
-        try
-        {
-            HotFixMangager.instance.InitApp(dll,pdb);
+            while (!www.isDone)
+                yield return null;
+            if (!string.IsNullOrEmpty(www.error))
+                UnityEngine.Debug.LogError(www.error);
+            byte[] pdb = www.bytes;
+
+            try
+            {
+                HotFixMangager.instance.InitApp(dll, pdb);
+            }
+            catch
+            {
+                Debug.LogError("加载热更DLL失败，请确保已经通过VS打开Assets/Samples/ILRuntime/1.6/Demo/HotFix_Project/HotFix_Project.sln编译过热更DLL");
+            }
+            InitializeILRuntime();
+            OnHotFixLoaded();
         }
-        catch
+        else//todo
         {
-            Debug.LogError("加载热更DLL失败，请确保已经通过VS打开Assets/Samples/ILRuntime/1.6/Demo/HotFix_Project/HotFix_Project.sln编译过热更DLL");
+            var request = AssetBundleManager.Instance.DownloadAssetFileAsync("hfmodule.assetbundle");
+            yield return request;
+
+            AssetBundle build = AssetBundle.LoadFromMemory(request.bytes);
+
+            //string path = AssetBundleUtility.PackagePathToAssetsPath("HfModule");
+            //string hotFixAssetbundleName = AssetBundleUtility.AssetBundlePathToAssetBundleName(path);
+            //AssetBundleManager.Instance.SetAssetBundleResident(hotFixAssetbundleName, true);
+            //var abloader = AssetBundleManager.Instance.LoadAssetBundleAsync(hotFixAssetbundleName);
+            //yield return abloader;
+
+            TextAsset textAssetdll = build.LoadAsset<TextAsset>("HotFix_Project.txt");
+            byte[] dll_P = textAssetdll.bytes;
+            TextAsset textAssetpdb = build.LoadAsset<TextAsset>("HotFix_Project_PDB.txt");
+            byte[] pdb_P = textAssetpdb.bytes;
+            HotFixMangager.instance.InitApp(dll_P, pdb_P);
         }
 
-        InitializeILRuntime();
-        OnHotFixLoaded();
+
+       
     }
 
     void InitializeILRuntime()

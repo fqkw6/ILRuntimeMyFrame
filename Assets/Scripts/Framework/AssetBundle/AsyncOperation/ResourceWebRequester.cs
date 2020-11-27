@@ -124,13 +124,13 @@ namespace AssetBundles
             {
                 www = UnityWebRequest.Get(url);
                 // Debug.LogError(url);
-                // Debug.Log("isLoadBundle==" + isLoadBundle + "====" + url);
+                 Debug.Log("isLoadBundle==" + isLoadBundle + "====" + url);
             }
 
             else
             {
                 www = UnityWebRequestAssetBundle.GetAssetBundle(url);
-                //  Debug.Log("isLoadBundle==" + isLoadBundle + "====" + url);
+                  Debug.Log("isLoadBundle==" + isLoadBundle + "====" + url);
             }
             if (www == null)
             {
