@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-[SerializeField]
+using System;
+[Serializable]
 public class ClassInfo
 {
     public string Name;
@@ -13,9 +13,9 @@ public class ClassInfo
 public class MonoView : MonoBehaviour
 {
     public List<ClassInfo> infos = new List<ClassInfo>();
-    private IView mView;
+    private IViewBase mView;
 
-    public IView View
+    public IViewBase View
     {
         get
         {
@@ -26,25 +26,25 @@ public class MonoView : MonoBehaviour
     public void AddView(string className)
     {
         if (mView != null) return;
-        IView view = HotFixMangager.instance.GetAppDomain().Instantiate<IView>(className);
+        IViewBase view = HotFixMangager.instance.GetAppDomain().Instantiate<IViewBase>(className);
 
         if (view == null)
         {
             Debug.LogError("is Not=="+className);
             return;
         }
-#if UNITY_EDTIOR
+#if UNITY_EDITOR
         ClassInfo info = new ClassInfo();
         info.Name = className;
         info.Object = gameObject;
         info.Type = typeof(MonoView).ToString();
         infos.Add(info);
-        
+        Debug.LogError(info+"jiajiajdijaisdjai");
 #endif
         AddView(view);
     }
 
-    public void AddView(IView view)
+    public void AddView(IViewBase view)
     {
         try
         {

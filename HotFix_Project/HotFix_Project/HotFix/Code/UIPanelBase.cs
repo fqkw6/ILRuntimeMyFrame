@@ -11,7 +11,7 @@ using UnityEngine.Events;
 /// <summary>
 /// 面板基类
 /// </summary>
-public abstract class UIPanelBase : Mediator
+public abstract class UIPanelBase : Mediator ,IViewBase
 {
 
     /// <summary>
@@ -104,6 +104,7 @@ public abstract class UIPanelBase : Mediator
     /// </summary>
     public GameObject GetGameObject()
     {
+        Debug.LogError("ceshi======");
         return m_GameObject;
     }
 
@@ -236,15 +237,44 @@ public abstract class UIPanelBase : Mediator
       //  UIManager.Instance.OnUpdate -= Update;
     }
 
-    /// <summary>
-    /// 更新函数
-    /// </summary>
-    protected virtual void Update()
-    {
 
+    public void Awake()
+    {
+        
+    }
+
+    public void OnEnable()
+    {
+        
+    }
+
+    public void Start()
+    {
+        
+    }
+
+    public void OnDisable()
+    {
+       
+    }
+
+
+    public void SetGameObject(GameObject go)
+    {
+        m_GameObject = go;
+    }
+
+    public void OnDestroy()
+    {
+        
+    }
+
+    public void Update()
+    {
+       
     }
 
     #endregion
 
- 
+
 }

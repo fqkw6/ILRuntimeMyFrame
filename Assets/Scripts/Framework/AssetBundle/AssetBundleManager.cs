@@ -601,6 +601,12 @@ namespace AssetBundles
             return assetsPathMapping.MapAssetPath(assetPath, out assetbundleName, out assetName);
         }
 
+        public void LoadAssetAsync<T>(string assetPath, Action<UnityEngine.Object> callBack = null) where T: UnityEngine.Object
+        {
+            Type type = typeof(T);
+            LoadAssetAsync(assetPath, type, callBack);
+        }
+
         public BaseAssetAsyncLoader LoadAssetAsync(string assetPath, System.Type assetType, Action<UnityEngine.Object> callBack = null)
         {
 #if UNITY_EDITOR

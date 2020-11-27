@@ -21,6 +21,7 @@ public class MonoViewInspector : Editor
     private void OnEnable()
     {
         this.mObjects = this.serializedObject.FindProperty("infos");
+        Debug.LogError(mObjects + "jiajiajd11122ijaisdjai");
         this.mObjecctTypes = this.ToObjecctTypes(this.mObjects);
 
     }
@@ -78,6 +79,11 @@ public class MonoViewInspector : Editor
                 Type = rElementPro.FindPropertyRelative("Type"),
                 Name = rElementPro.FindPropertyRelative("Name"),
             };
+            if (rObjectType.Object != null && rObjectType.Object.objectReferenceValue != null && string.IsNullOrEmpty(rObjectType.Name.stringValue))
+            {
+                rObjectType.Name.stringValue = rObjectType.Object.objectReferenceValue.name;
+            }
+            rObjectTypes.Add(rObjectType);
         }
 
         return rObjectTypes;

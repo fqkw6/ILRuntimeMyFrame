@@ -1333,6 +1333,7 @@ namespace ILRuntime.Runtime.Enviorment
                     }
                     adaptor.RuntimeType = res;
                     crossAdaptors[bType] = adaptor;
+                    UnityEngine.Debug.LogError(adaptor+"====");
                 }
                 else
                     throw new Exception("Crossbinding Adapter for " + bType.FullName + " is already added.");

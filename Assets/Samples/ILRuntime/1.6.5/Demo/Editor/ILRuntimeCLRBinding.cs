@@ -8,6 +8,32 @@ using ILRuntimeDemo;
 [System.Reflection.Obfuscation(Exclude = true)]
 public class ILRuntimeCLRBinding
 {
+    [MenuItem("ILRuntime/Code")]
+    static void GenerateCLRBinding()
+    {
+        List<Type> types = new List<Type>();
+        types.Add(typeof(int));
+        types.Add(typeof(double));
+        types.Add(typeof(long));
+        types.Add(typeof(object));
+        types.Add(typeof(string));
+        types.Add(typeof(Array));
+       // types.Add(typeof(Vector2));
+        types.Add(typeof(Vector3));
+        //types.Add(typeof(Vector4));
+        types.Add(typeof(Quaternion));
+        types.Add(typeof(GameObject));
+        types.Add(typeof(UnityEngine.Object));
+        types.Add(typeof(Transform));
+        types.Add(typeof(RectTransform));
+        types.Add(typeof(Time));
+        types.Add(typeof(Debug));
+        types.Add(typeof(List<ILRuntime.Runtime.Intepreter.ILTypeInstance>));
+        ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(types, "Assets/Samples/ILRuntime/Generated");
+        AssetDatabase.Refresh();
+    }
+
+
    [MenuItem("ILRuntime/通过自动分析热更DLL生成CLR绑定")]
     static void GenerateCLRBindingByAnalysis()
     {
@@ -32,7 +58,7 @@ public class ILRuntimeCLRBinding
         domain.RegisterCrossBindingAdaptor(new CoroutineAdapter());
         domain.RegisterCrossBindingAdaptor(new TestClassBaseAdapter());
         domain.RegisterValueTypeBinder(typeof(Vector3), new Vector3Binder());
-        domain.RegisterCrossBindingAdaptor(new IViewAdaptor());
+        domain.RegisterCrossBindingAdaptor(new IViewBaseAdaptor());
     }
 }
 #endif

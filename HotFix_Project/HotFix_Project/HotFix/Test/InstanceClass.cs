@@ -28,6 +28,10 @@ namespace HotFix_Project
         public static void StaticFunTest()
         {
             UnityEngine.Debug.Log("!!! InstanceClass.Stat55555555icFunTest()");
+
+            UIMangager.OpenPanel<LoginPanel>("UI/Prefabs/View/UILaunch.prefab", "LoginPanel", null,null);
+
+
         }
 
         public static void StaticFunTest2(int a)
