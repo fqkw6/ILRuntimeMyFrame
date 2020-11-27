@@ -43,6 +43,7 @@ public class HotFixMangager : Singleton<HotFixMangager>
     private void RegisterDelegates()
     {
         mAppDomain.DelegateManager.RegisterMethodDelegate<IViewBaseAdaptor.Adaptor>();
+        mAppDomain.DelegateManager.RegisterMethodDelegate<IExtensibleAdapter.Adaptor>();
     }
     /// <summary>
     /// 注册所有热更DLL中用到的跨域继承Adapter，否则无法正确抓取引用
@@ -55,6 +56,7 @@ public class HotFixMangager : Singleton<HotFixMangager>
 
         mAppDomain.RegisterValueTypeBinder(typeof(Vector3), new Vector3Binder());
         mAppDomain.RegisterCrossBindingAdaptor(new IViewBaseAdaptor());
+        mAppDomain.RegisterCrossBindingAdaptor(new IExtensibleAdapter());
     }
 
 

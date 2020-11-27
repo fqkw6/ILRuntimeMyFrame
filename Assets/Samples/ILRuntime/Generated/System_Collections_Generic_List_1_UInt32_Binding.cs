@@ -14,14 +14,14 @@ using ILRuntime.CLR.Utils;
 
 namespace ILRuntime.Runtime.Generated
 {
-    unsafe class System_NotImplementedException_Binding
+    unsafe class System_Collections_Generic_List_1_UInt32_Binding
     {
         public static void Register(ILRuntime.Runtime.Enviorment.AppDomain app)
         {
             BindingFlags flag = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly;
             MethodBase method;
             Type[] args;
-            Type type = typeof(System.NotImplementedException);
+            Type type = typeof(System.Collections.Generic.List<System.UInt32>);
 
             args = new Type[]{};
             method = type.GetConstructor(flag, null, args, null);
@@ -36,7 +36,7 @@ namespace ILRuntime.Runtime.Generated
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* __ret = ILIntepreter.Minus(__esp, 0);
 
-            var result_of_this_method = new System.NotImplementedException();
+            var result_of_this_method = new System.Collections.Generic.List<System.UInt32>();
 
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }

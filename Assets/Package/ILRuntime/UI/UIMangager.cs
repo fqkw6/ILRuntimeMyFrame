@@ -108,6 +108,7 @@ public class UIMangager
 
     public static void OpenPanel<T>(string realPath, string className,Transform parent, Action<T> callBack = null) where T : IViewBase
     {
+        Debug.LogError(typeof(T)+"===fjsjdkhfdkjshfkj");
         LoadUI<T>(realPath,className, parent,callBack);
     }
 
