@@ -3,7 +3,7 @@
    <ExcelInputPath>./Excels/</ExcelInputPath>  
    <TemplatePath>./Templates/</TemplatePath>
    <DesFileOutputPath>./DesFiles/</DesFileOutputPath>
-   <ByteDataOutputPath>./../Assets/Resources/DataBytes/</ByteDataOutputPath>
+   <ByteDataOutputPath>./../Assets/AssetsPackage/DataBytes/</ByteDataOutputPath>
    <CSClassCodeOutputPath>./../HotFix_Project/HotFix_Project/HotFix/Data/CSOutput/ClassCode/</CSClassCodeOutputPath>
    <CSBufferCodeOutputPath>./../HotFix_Project/HotFix_Project/HotFix/Data/CSOutput/BufferCode/</CSBufferCodeOutputPath>
    <CSTemplateOutputPath>./../HotFix_Project/HotFix_Project/HotFix/Data/CSTemplateOutput/</CSTemplateOutputPath>

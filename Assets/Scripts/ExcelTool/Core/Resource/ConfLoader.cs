@@ -7,6 +7,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using UnityEditor;
 using UnityEngine;
 
 /// <summary>
@@ -17,7 +18,7 @@ public class ConfLoader : SingletonTemplate<ConfLoader> {
     /// <summary>
     /// Excel表格数据存储目录
     /// </summary>
-    public const string ExcelDataFolderPath = "DataBytes/";
+    public const string ExcelDataFolderPath = "Assets/AssetsPackage/DataBytes/";
 
     public ConfLoader()
     {
@@ -31,7 +32,8 @@ public class ConfLoader : SingletonTemplate<ConfLoader> {
     /// <returns></returns>
     public Stream getStreamByteName(string bytefilename)
     {
-        var textasset = Resources.Load(ExcelDataFolderPath + bytefilename) as TextAsset;
+        //var textasset = Resources.Load(ExcelDataFolderPath + bytefilename) as TextAsset;
+        TextAsset textasset = AssetDatabase.LoadAssetAtPath<TextAsset>(ExcelDataFolderPath+ bytefilename+ ".bytes");
         var memorystream = new MemoryStream(textasset.bytes);
         return memorystream;
     }
