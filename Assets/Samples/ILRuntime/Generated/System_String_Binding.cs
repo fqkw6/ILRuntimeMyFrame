@@ -38,6 +38,8 @@ namespace ILRuntime.Runtime.Generated
             method = type.GetMethod("get_Length", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, get_Length_4);
 
+            app.RegisterCLRCreateArrayInstance(type, s => new System.String[s]);
+
 
         }
 

@@ -4,7 +4,6 @@
  * Create Date:             2018/03/12
  */
 
-using Data;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -65,7 +64,7 @@ public class GameStartTest : MonoBehaviour {
         Debug.Log("onLoadAllExcelData()");
         TimeCounter.Singleton.Restart("LoadAllExcelData()");
         MonoMemoryProfiler.Singleton.beginMemorySample("LoadAllExcelData()");
-        GameDataManager.Instance.loadAll();
+        //GameDataManager.Instance.loadAll();
         MonoMemoryProfiler.Singleton.endMemorySample();
         TimeCounter.Singleton.End();
     }
@@ -76,18 +75,18 @@ public class GameStartTest : MonoBehaviour {
     public void onPrintAuthorInfoExcelData()
     {
         Debug.Log("onPrintAuthorInfoExcelData()");
-        foreach(var authorinfo in GameDataManager.Instance.t_AuthorInfocontainer.getList())
-        {
-            Debug.Log(string.Format("authorinfo.id : {0}", authorinfo.id));
-            Debug.Log(string.Format("authorinfo.author : {0}", authorinfo.author));
-            Debug.Log(string.Format("authorinfo.age : {0}", authorinfo.age));
-            Debug.Log(string.Format("authorinfo.hashouse : {0}", authorinfo.hashouse));
-            Debug.Log(string.Format("authorinfo.money : {0}", authorinfo.money));
-            Debug.Log(string.Format("authorinfo.pbutctime : {0}", authorinfo.pbutctime));
-            foreach (var lucknumber in authorinfo.luckynumber)
-            {
-                Debug.Log(string.Format("authorinfo.lucknumber : {0}", lucknumber));
-            }
-        }
+        //foreach(var authorinfo in GameDataManager.Instance.t_AuthorInfocontainer.getList())
+        //{
+        //    Debug.Log(string.Format("authorinfo.id : {0}", authorinfo.id));
+        //    Debug.Log(string.Format("authorinfo.author : {0}", authorinfo.author));
+        //    Debug.Log(string.Format("authorinfo.age : {0}", authorinfo.age));
+        //    Debug.Log(string.Format("authorinfo.hashouse : {0}", authorinfo.hashouse));
+        //    Debug.Log(string.Format("authorinfo.money : {0}", authorinfo.money));
+        //    Debug.Log(string.Format("authorinfo.pbutctime : {0}", authorinfo.pbutctime));
+        //    foreach (var lucknumber in authorinfo.luckynumber)
+        //    {
+        //        Debug.Log(string.Format("authorinfo.lucknumber : {0}", lucknumber));
+        //    }
+        //}
     }
 }

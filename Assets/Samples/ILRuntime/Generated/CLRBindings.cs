@@ -73,6 +73,16 @@ namespace ILRuntime.Runtime.Generated
             System_Collections_Generic_ICollection_1_ILTypeInstance_Binding.Register(app);
             System_Collections_Generic_List_1_ILTypeInstance_Binding_Enumerator_Binding.Register(app);
             System_Collections_Generic_IList_1_ILTypeInstance_Binding.Register(app);
+            System_Collections_Generic_Dictionary_2_Int32_ILTypeInstance_Binding.Register(app);
+            SingletonTemplate_1_ConfLoader_Binding.Register(app);
+            ConfLoader_Binding.Register(app);
+            System_IO_BinaryReader_Binding.Register(app);
+            System_IO_Stream_Binding.Register(app);
+            xbuffer_boolBuffer_Binding.Register(app);
+            xbuffer_intBuffer_Binding.Register(app);
+            xbuffer_stringBuffer_Binding.Register(app);
+            xbuffer_floatBuffer_Binding.Register(app);
+            xbuffer_longBuffer_Binding.Register(app);
             Google_Protobuf_ProtoPreconditions_Binding.Register(app);
             Google_Protobuf_CodedOutputStream_Binding.Register(app);
             Google_Protobuf_CodedInputStream_Binding.Register(app);
