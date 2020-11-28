@@ -170,7 +170,42 @@ public class IViewBaseAdaptor : CrossBindingAdaptor
                 Debug.LogError("shezhi "+go);
             }
         }
+        //属性
+        //public MessageDescriptor Descriptor
+        //{
+        //    get
+        //    {
+        //        IMethod method = null;
+        //        method = instance.Type.GetMethod("get_Descriptor", 0);
+        //        if (method == null)
+        //        {
+        //            Debug.LogError("get_Descriptor Error");
+        //            return null;
+        //        }
+        //        else
+        //        {
+        //            var res = appdomain.Invoke(method, instance, null);
+        //            return (MessageDescriptor)res;
+        //        }
+        //    }
+        //    set
+        //    {
+        //        IMethod method = null;
+        //        method = instance.Type.GetMethod("set_Descriptor", 0);
+        //        if (method == null)
+        //        {
+        //            Debug.LogError("set_Descriptor Error");
+        //            return;
+        //        }
+        //        else
+        //        {
+        //            paraml[0] = value;
+        //            appdomain.Invoke(method, instance, paraml[0]);
 
-       
+        //        }
+        //    }
+
+        //}
+
     }
 }
