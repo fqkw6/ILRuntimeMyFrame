@@ -168,9 +168,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(TargetDir)$(ProjectName).dll" "$(ProjectDir)../Assets\StreamingAssets\"
-copy /Y "$(TargetDir)$(ProjectName).pdb" "$(ProjectDir)../Assets\StreamingAssets\"
-</PostBuildEvent>
+    <PostBuildEvent>copy /Y "$(TargetDir)$(ProjectName).dll" "$(ProjectDir)../../Assets\StreamingAssets\"
+copy /Y "$(TargetDir)$(ProjectName).pdb" "$(ProjectDir)../../Assets\StreamingAssets\"
+copy /Y "$(TargetDir)$(ProjectName).dll" "$(ProjectDir)../../Assets\AssetsPackage\HfModule\$(TargetName).txt"
+copy /Y "$(TargetDir)$(ProjectName).pdb" "$(ProjectDir)../../Assets\AssetsPackage\HfModule\$(TargetName)_PDB.txt"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
