@@ -10,7 +10,7 @@ using System.Diagnostics;
 
 public class LogLocation
 {
-    [UnityEditor.Callbacks.OnOpenAssetAttribute(0)]
+   // [UnityEditor.Callbacks.OnOpenAssetAttribute(0)]
     static bool OnOpenAsset(int instanceID, int line)
     {
         string stackTrace = GetStackTrace();

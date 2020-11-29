@@ -1,0 +1,26 @@
+﻿syntax = "proto3";
+package Message;
+
+option java_package = "com.jedi.serverEngine.message";  
+option java_outer_classname = "PBChat";
+
+
+
+message myperson { // 消息开始
+	uint32 id = 1;
+	repeated bytes array_value = 2;
+	map<string, uint64> projects = 3;
+} // 消息结束
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -147,6 +147,7 @@ namespace AssetBundles
         {
             if (isDone)
             {
+                
                 return 1.0f;
             }
 
@@ -157,7 +158,7 @@ namespace AssetBundles
         {
             if (isDone)
             {
-
+                Debug.LogError("加载结束"+ url);
                 return;
             }
 

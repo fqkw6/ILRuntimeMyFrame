@@ -111,34 +111,9 @@ public class UIMangager
 
     public static void OpenPanel<T>(string realPath, string className,Transform parent, Action<T> callBack = null) where T : IViewBase
     {
-        Debug.LogError(typeof(T)+"===fjsjdkhfdkjshfkj");
         LoadUI<T>(realPath,className, parent,callBack);
     }
 
-    public static IMessage Deserialize(MessageParser _type, byte[] byteData)
-    {
-        Stream stream = new MemoryStream(byteData);
-        if (stream != null)
-        {
-            IMessage t = _type.ParseFrom(stream);
-            stream.Close();
-            return t;
-        }
-        stream.Close();
-        return default(IMessage);
-    }
-    public static byte[] Serialize(IMessage _data)
-    {
-        MemoryStream stream = new MemoryStream();
-        if (stream != null)
-        {
-            _data.WriteTo(stream);
-            byte[] bytes = stream.ToArray();
-            stream.Close();
-            return bytes;
-        }
-        stream.Close();
-        return null;
-    }
+ 
 
 }

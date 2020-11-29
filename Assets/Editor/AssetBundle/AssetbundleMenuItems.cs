@@ -31,6 +31,7 @@ namespace AssetBundles
         const string kToolsOpenPerisitentData = "AssetBundles/Open PersistentData";
         const string kToolsClearOutput = "AssetBundles/Clear Current Output";
         const string kToolsClearStreamingAssets = "AssetBundles/Clear StreamingAssets";
+        const string kToolsClearAbAssets = "AssetBundles/Clear AbAssets";
         const string kToolsClearPersistentAssets = "AssetBundles/Clear PersistentData";
 
         const string kCreateAssetbundleForCurrent = "Assets/AssetBundles/Create Assetbundle For Current &#z";
@@ -234,6 +235,21 @@ namespace AssetBundles
             Debug.Log(string.Format("Clear {0} assetbundle streaming assets done!", PackageUtils.GetCurPlatformName()));
         }
 
+        [MenuItem(kToolsClearAbAssets, false, 1308)]
+        static public void ToolsClearAbAssets()
+        {
+            bool checkClear = EditorUtility.DisplayDialog("ClearAbAssets Warning",
+                "Clear AssetBundles assets assetbundles will lost the latest player build info, continue ?",
+                "Yes", "No");
+            if (!checkClear)
+            {
+                return;
+            }
+          //  string outputPath = Path.Combine("../AssetBundles/Android/Android", AssetBundleConfig.AssetBundlesFolderName);
+            string outputPath = Path.Combine(System.Environment.CurrentDirectory, AssetBundleConfig.AssetBundlesFolderName);
+            GameUtility.SafeClearDir(outputPath);
+            Debug.Log(string.Format("Clear {0} assetbundle AssetBundles assets done!", PackageUtils.GetCurPlatformName()));
+        }
         [MenuItem(kToolsClearPersistentAssets, false, 1301)]
         static public void ToolsClearPersistentAssets()
         {
@@ -388,17 +404,16 @@ namespace AssetBundles
         }
 
 
-        //[MenuItem(kAssetbundleHotFixDll)]
-        //static public void AssetbundleHotFixDll()
-        //{
-        //   // CreatABScripts();
-        //}
+        [MenuItem(kAssetbundleHotFixDll)]
+        static public void AssetbundleHotFixDll()
+        {
+            ToCopyAssetbundleHotFixDll();
+        }
 
         static public void ToCopyAssetbundleHotFixDll()
         {
-            string oldPath = "Assets/StreamingAssets/HotFix_Project.dll";
-            string path = "Assets/AssetsPackage/HotFix_Project.txt";
-
+            string oldPath = "Assets/StreamingAssets/HotFix_Project.awb";
+            string path = "Assets/AssetsPackage/HfModule/HotFix_Project.txt"; 
             if (File.Exists(path))
             {
                 File.Delete(path) ;

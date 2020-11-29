@@ -40,7 +40,7 @@ namespace ILRuntime.Runtime.Generated
             System_Reflection_PropertyInfo_Binding.Register(app);
             System_Reflection_MethodBase_Binding.Register(app);
             Google_Protobuf_Collections_RepeatedField_1_Int32_Binding.Register(app);
-            UIMangager_Binding.Register(app);
+            //UIMangager_Binding.Register(app);
             System_Collections_Generic_List_1_Int32_Binding.Register(app);
             CLRBindingTestClass_Binding.Register(app);
             CoroutineDemo_Binding.Register(app);

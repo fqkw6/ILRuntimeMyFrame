@@ -147,6 +147,8 @@ public class AssetbundleUpdater : MonoBehaviour
         XLuaManager.Instance.StartGame();
         CustomDataStruct.Helper.Startup();
         UINoticeTip.Instance.DestroySelf();
+        yield return HotFixMangager.instance.LoadHotFixAssembly();
+
         Destroy(gameObject, 0.5f);
         yield break;
     }
@@ -684,9 +686,21 @@ public class AssetbundleUpdater : MonoBehaviour
         var abloader = AssetBundleManager.Instance.LoadAssetBundleAsync(luaAssetbundleName);
         yield return abloader;
         abloader.Dispose();
+        Debug.LogError(abloader.assetbundle + "ceshi===1111");
         XLuaManager.Instance.Restart();
         XLuaManager.Instance.StartHotfix();
+        //重启data
+        string dataAssetbundleName = GameLaunch.DataPath;
+        string path = AssetBundleUtility.PackagePathToAssetsPath(dataAssetbundleName);
+        string dataPath = AssetBundleUtility.AssetBundlePathToAssetBundleName(path);
+        AssetBundleManager.Instance.SetAssetBundleResident(dataPath, true);
+        var dataloader = AssetBundleManager.Instance.LoadAssetBundleAsync(dataPath);
+        yield return dataloader;
+        dataloader.Dispose();
+        Debug.LogError(dataloader.assetbundle + "ceshi===1111");
+
         yield break;
+
     }
 
     void Update()

@@ -24,9 +24,9 @@ public class TestPB
         //gx_data obj2 = gx_data.Parser.ParseFrom(mem);
         //Dumper.Dump(obj2);
 
-        byte[] s=UIMangager .Serialize(obj);
+        byte[] s=ProtoBufferTool .Serialize(obj);
 
-        gx_data d = UIMangager.Deserialize(gx_data.Parser, s) as gx_data;
+        gx_data d = ProtoBufferTool.Deserialize(gx_data.Parser, s) as gx_data;
         Dumper.Dump(d);
 
     }

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using UnityEngine.UI;
+using UnityEditor;
 
 [Hotfix]
 [LuaCallCSharp]
@@ -16,7 +17,7 @@ public class GameLaunch : MonoBehaviour
 {
     const string launchPrefabPath = "UI/Prefabs/View/UILaunch.prefab";
     const string noticeTipPrefabPath = "UI/Prefabs/Common/UINoticeTip.prefab";
-
+    public const string DataPath = "DataBytes";
     GameObject launchPrefab;
     GameObject noticeTipPrefab;
     AssetbundleUpdater updater;
@@ -31,6 +32,7 @@ public class GameLaunch : MonoBehaviour
         if (UnityEditor.EditorPrefs.GetBool(URLSetting.START_IS_GAME))
         {
             SceneManager.LoadScene("LaunchScene");
+            AssetDatabase.Refresh();
             UnityEditor.EditorPrefs.SetBool(URLSetting.START_IS_GAME, false);
         }
 #endif
@@ -68,6 +70,19 @@ public class GameLaunch : MonoBehaviour
         start = DateTime.Now;
         yield return AssetBundleManager.Instance.Initialize();
         Logger.Log(string.Format("AssetBundleManager Initialize use {0}ms", (DateTime.Now - start).Milliseconds));
+        //加载dataBuild
+        //这里先加载一次配置，更新检查还会加载
+        start = DateTime.Now;
+        string dataAssetbundleName = DataPath;
+
+        string path = AssetBundleUtility.PackagePathToAssetsPath(dataAssetbundleName);
+        string dataPath = AssetBundleUtility.AssetBundlePathToAssetBundleName(path);
+        AssetBundleManager.Instance.SetAssetBundleResident(dataPath, true);
+        var dataloader = AssetBundleManager.Instance.LoadAssetBundleAsync(dataPath);
+        yield return dataloader;
+        dataloader.Dispose();
+        Logger.Log(string.Format("dataAssetbundle use {0}ms", (DateTime.Now - start).Milliseconds));
+
 
         // 启动xlua热修复模块
         start = DateTime.Now;
@@ -81,7 +96,7 @@ public class GameLaunch : MonoBehaviour
         XLuaManager.Instance.StartHotfix();
         Logger.Log(string.Format("XLuaManager StartHotfix use {0}ms", (DateTime.Now - start).Milliseconds));
 
-        yield return LoadHotFixAssembly();
+
 
         // 初始化UI界面
         yield return InitLaunchPrefab();
@@ -95,6 +110,7 @@ public class GameLaunch : MonoBehaviour
             updater.StartCheckUpdate();
         }
         yield return TestLoad();
+
         yield break;
 
     }
@@ -253,87 +269,8 @@ public class GameLaunch : MonoBehaviour
         return string.Empty;
     }
 
-    bool s = true;
-    IEnumerator LoadHotFixAssembly()
-    {
-        if (s)
-        {
-#if UNITY_ANDROID
-            WWW www = new WWW(Application.streamingAssetsPath + "/HotFix_Project.dll");
-#else
-        WWW www = new WWW("file:///" + Application.streamingAssetsPath + "/HotFix_Project.dll");
-#endif
-            while (!www.isDone)
-                yield return null;
-            if (!string.IsNullOrEmpty(www.error))
-                UnityEngine.Debug.LogError(www.error);
-            byte[] dll = www.bytes;
-            www.Dispose();
+   
 
-            //PDB文件是调试数据库，如需要在日志中显示报错的行号，则必须提供PDB文件，不过由于会额外耗用内存，正式发布时请将PDB去掉，下面LoadAssembly的时候pdb传null即可
-#if UNITY_ANDROID
-            www = new WWW(Application.streamingAssetsPath + "/HotFix_Project.pdb");
-#else
-        www = new WWW("file:///" + Application.streamingAssetsPath + "/HotFix_Project.pdb");
-#endif
-            while (!www.isDone)
-                yield return null;
-            if (!string.IsNullOrEmpty(www.error))
-                UnityEngine.Debug.LogError(www.error);
-            byte[] pdb = www.bytes;
-
-            try
-            {
-                HotFixMangager.instance.InitApp(dll, pdb);
-            }
-            catch
-            {
-                Debug.LogError("加载热更DLL失败，请确保已经通过VS打开Assets/Samples/ILRuntime/1.6/Demo/HotFix_Project/HotFix_Project.sln编译过热更DLL");
-            }
-            InitializeILRuntime();
-            OnHotFixLoaded();
-        }
-        else//todo
-        {
-            var request = AssetBundleManager.Instance.DownloadAssetFileAsync("hfmodule.assetbundle");
-            yield return request;
-
-            AssetBundle build = AssetBundle.LoadFromMemory(request.bytes);
-
-            //string path = AssetBundleUtility.PackagePathToAssetsPath("HfModule");
-            //string hotFixAssetbundleName = AssetBundleUtility.AssetBundlePathToAssetBundleName(path);
-            //AssetBundleManager.Instance.SetAssetBundleResident(hotFixAssetbundleName, true);
-            //var abloader = AssetBundleManager.Instance.LoadAssetBundleAsync(hotFixAssetbundleName);
-            //yield return abloader;
-
-            TextAsset textAssetdll = build.LoadAsset<TextAsset>("HotFix_Project.txt");
-            byte[] dll_P = textAssetdll.bytes;
-            TextAsset textAssetpdb = build.LoadAsset<TextAsset>("HotFix_Project_PDB.txt");
-            byte[] pdb_P = textAssetpdb.bytes;
-            HotFixMangager.instance.InitApp(dll_P, pdb_P);
-        }
-
-
-       
-    }
-
-    void InitializeILRuntime()
-    {
-#if DEBUG && (UNITY_EDITOR || UNITY_ANDROID || UNITY_IPHONE)
-        //由于Unity的Profiler接口只允许在主线程使用，为了避免出异常，需要告诉ILRuntime主线程的线程ID才能正确将函数运行耗时报告给Profiler
-        HotFixMangager.instance.GetAppDomain().UnityMainThreadID = System.Threading.Thread.CurrentThread.ManagedThreadId;
-#endif
-        //打开调试
-        HotFixMangager.instance.GetAppDomain().DebugService.StartDebugService(56000);
-        //这里做一些ILRuntime的注册，HelloWorld示例暂时没有需要注册的
-    }
-
-    void OnHotFixLoaded()
-    {
-        //HelloWorld，第一次方法调用
-        HotFixMangager.instance.GetAppDomain().Invoke("HotFix_Project.InstanceClass", "StaticFunTest", null, null);
-
-    }
-
+   
    
 }

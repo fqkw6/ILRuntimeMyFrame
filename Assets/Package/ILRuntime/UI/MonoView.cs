@@ -39,7 +39,6 @@ public class MonoView : MonoBehaviour
         info.Object = gameObject;
         info.Type = typeof(MonoView).ToString();
         infos.Add(info);
-        Debug.LogError(info+"jiajiajdijaisdjai");
 #endif
         AddView(view);
     }
