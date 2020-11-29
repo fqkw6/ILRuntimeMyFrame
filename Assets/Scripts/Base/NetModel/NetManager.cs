@@ -28,7 +28,7 @@ public class NetManager
     {
         ByteBuffer recive = new ByteBuffer(bytes);
         byte[] data = recive.ReadBytes();
-        ProtoBufferTool.Deserialize();
+      //  ProtoBufferTool.Deserialize();
     }
 
     public void SendMessage(int id, byte[] bytes)
