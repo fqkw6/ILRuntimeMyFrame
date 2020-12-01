@@ -407,7 +407,7 @@ namespace AssetBundles
         [MenuItem(kAssetbundleHotFixDll)]
         static public void AssetbundleHotFixDll()
         {
-            ToCopyAssetbundleHotFixDll();
+            CreatABScripts();
         }
 
         static public void ToCopyAssetbundleHotFixDll()
@@ -426,8 +426,8 @@ namespace AssetBundles
 
         static public void CreatABScripts()
         {
-            ToCopyAssetbundleHotFixDll();
-            string path= "Assets/AssetsPackage/HotFix_Project.txt";
+           // ToCopyAssetbundleHotFixDll();
+            string path= "Assets/AssetsPackage/HfModule/HotFix_Project.bytes";
             if (!File.Exists(path))
             {
                 Debug.LogError("没找到fix");
@@ -435,9 +435,10 @@ namespace AssetBundles
 
             AssetBundleBuild[] ss = new AssetBundleBuild[1];
             AssetBundleBuild build = new AssetBundleBuild();
-            build.assetBundleName = "loading.ab";
-            build.assetBundleVariant = string.Empty;
+            build.assetBundleName = "loading.xml";
             build.assetNames = new string[] { path.Replace("\\", "/") };
+
+            build.assetBundleVariant = string.Empty;
             ss[0] = build;
             //参数一为打包到哪个路径，参数二压缩选项  参数三 平台的目标
             //只要setname 的资源都会按照设计的名字打包
@@ -446,18 +447,8 @@ namespace AssetBundles
 #if UNITY_IOS
  bt = BuildTarget.iOS;
 #endif
-            BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath, ss, BuildAssetBundleOptions.DeterministicAssetBundle
-            | BuildAssetBundleOptions.ChunkBasedCompression, bt);
+            BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath, ss, BuildAssetBundleOptions.DeterministicAssetBundle ,bt);
             Debug.Log("build Secuss");
-            AssetDatabase.SaveAssets();
-            if (File.Exists(path))
-            {
-                File.Delete(path);
-            }
-            if (File.Exists("Assets/AssetsPackage/loading.ab.manifest"))
-            {
-                File.Delete("Assets/AssetsPackage/loading.ab.manifest");
-            }
             AssetDatabase.Refresh();
         }
     }

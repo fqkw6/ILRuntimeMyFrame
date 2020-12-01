@@ -32,7 +32,7 @@ namespace HotFix_Project
             UnityEngine.Debug.Log("!!! InstanceClass.Stat55555555icFunTest()");
 
             UIMangager.OpenPanel<LoginPanel>("UI/Prefabs/View/UILaunch.prefab", "LoginPanel", null,null);
-            TestPB.Start();
+           // TestPB.Start();
             onLoadAllExcelData();
            // onPrintAuthorInfoExcelData();
         }

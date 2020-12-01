@@ -1,7 +1,7 @@
 ManifestFileVersion: 0
-CRC: 2599365626
+CRC: 2173337226
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: loading.ab
+      Name: loading.xml
       Dependencies: {}

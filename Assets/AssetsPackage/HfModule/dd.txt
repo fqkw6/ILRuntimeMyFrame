@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using AppDomain = ILRuntime.Runtime.Enviorment.AppDomain;
@@ -155,7 +155,7 @@ public class HotFixMangager : Singleton<HotFixMangager>
             }
             byte[] bbb = webRequest.downloadHandler.data;
             AssetBundle bb = AssetBundle.LoadFromMemory(bbb);
-            TextAsset textAsset = bb.LoadAsset<TextAsset>("HotFix_Project.bytes");
+            TextAsset textAsset = bb.LoadAsset<TextAsset>("HotFix_Project.txt");
             //AssetBundleManager.Instance.SetAssetBundleResident(hotFixAssetbundleName, true);
             //var abloader = AssetBundleManager.Instance.LoadAssetBundleAsync(hotFixAssetbundleName);
             //yield return abloader;
