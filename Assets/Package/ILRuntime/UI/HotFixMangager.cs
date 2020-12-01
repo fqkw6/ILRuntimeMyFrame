@@ -24,7 +24,7 @@ public class HotFixMangager : Singleton<HotFixMangager>
         RegisterCrossBindingAdaptor();
         RegisterCLRMethodRedirection();
         RegisterDelegates();
-
+        Debug.LogError("启动热更");
     }
 
     public AppDomain GetAppDomain()
@@ -93,22 +93,14 @@ public class HotFixMangager : Singleton<HotFixMangager>
 
     public IEnumerator LoadHotFixAssembly()
     {
-        bool isEditor = false;
+        bool isEditor = true;
 
 #if UNITY_EDITOR
-        if (AssetBundleConfig.IsEditorMode)
-        {
-            isEditor = AssetBundleConfig.IsEditorMode;
-        }
+        isEditor = AssetBundleConfig.IsEditorMode;
 #endif
-
         if (isEditor)
         {
-#if UNITY_ANDROID
-            WWW www = new WWW(Application.streamingAssetsPath + "/HotFix_Project.awb");
-#else
-        WWW www = new WWW("file:///" + Application.streamingAssetsPath + "/HotFix_Project.awb");
-#endif
+            WWW www = new WWW("file:///" + Application.streamingAssetsPath + "/HotFix_Project.awb");
             while (!www.isDone)
                 yield return null;
             if (!string.IsNullOrEmpty(www.error))
@@ -117,11 +109,7 @@ public class HotFixMangager : Singleton<HotFixMangager>
             www.Dispose();
 
             //PDB文件是调试数据库，如需要在日志中显示报错的行号，则必须提供PDB文件，不过由于会额外耗用内存，正式发布时请将PDB去掉，下面LoadAssembly的时候pdb传null即可
-#if UNITY_ANDROID
-            www = new WWW(Application.streamingAssetsPath + "/HotFix_Project_PDB.awb");
-#else
-        www = new WWW("file:///" + Application.streamingAssetsPath + "/HotFix_Project_PDB.awb");
-#endif
+            www = new WWW("file:///" + Application.streamingAssetsPath + "/HotFix_Project_PDB.awb");
             while (!www.isDone)
                 yield return null;
             if (!string.IsNullOrEmpty(www.error))
@@ -144,28 +132,14 @@ public class HotFixMangager : Singleton<HotFixMangager>
 
             string path = AssetBundleUtility.PackagePathToAssetsPath("HfModule");
             string hotFixAssetbundleName = AssetBundleUtility.AssetBundlePathToAssetBundleName(path);
-
-            //string url = Application.streamingAssetsPath + "/loading.xml";
-            //UnityWebRequest webRequest = UnityWebRequest.Get(url);
-            //yield return webRequest.SendWebRequest();
-            //Debug.LogError(hotFixAssetbundleName);
-            //if (webRequest.isNetworkError || webRequest.isHttpError)
-            //{
-            //    Debug.LogError(webRequest.error+"ceds");
-            //}
-            //byte[] bbb = webRequest.downloadHandler.data;
-            //AssetBundle bb = AssetBundle.LoadFromMemory(bbb);
-            //TextAsset textAsset = bb.LoadAsset<TextAsset>("HotFix_Project.bytes");
             AssetBundleManager.Instance.SetAssetBundleResident(hotFixAssetbundleName, true);
             var abloader = AssetBundleManager.Instance.LoadAssetBundleAsync(hotFixAssetbundleName);
             yield return abloader;
-
+            
             byte[] dll_P = Load("HotFix_Project.bytes");
-            //string buildpath = "Assets/StreamingAssets/loading.xml";
-            //string build2path = "Assets/StreamingAssets/loading2.dll";
-             //byte[] bytes = File.ReadAllBytes(buildpath);
-             //File.WriteAllBytes(build2path, dll_P);
-             HotFixMangager.instance.InitApp(dll_P, null);
+            HotFixMangager.instance.InitApp(dll_P, null);
+            InitializeILRuntime();
+            OnHotFixLoaded();
         }
 
 
@@ -207,7 +181,7 @@ public class HotFixMangager : Singleton<HotFixMangager>
 
     void OnHotFixLoaded()
     {
-        //HelloWorld，第一次方法调用
+        //启动热更代码的接口，静态方法调用
         HotFixMangager.instance.GetAppDomain().Invoke("HotFix_Project.InstanceClass", "StaticFunTest", null, null);
 
     }

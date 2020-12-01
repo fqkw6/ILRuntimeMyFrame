@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Message;
+
 public class NetMessageBase
 {
     public int MessageId;//消息头
@@ -19,8 +19,8 @@ public class NetManager
     //注册
     public void RegisterNetModel()
     {
-        myperson myperson = new myperson();
-        myperson.Projects.Add("ss",90);
+        //myperson myperson = new myperson();
+        //myperson.Projects.Add("ss",90);
         //myperson.ArrayValue.Add(new Google.Protobuf.ByteString); 
     }
 

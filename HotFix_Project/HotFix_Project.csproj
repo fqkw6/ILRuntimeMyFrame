@@ -59,8 +59,7 @@
     <Compile Include="HotFix_Project\HotFix\Code\UIPanelBase.cs" />
     <Compile Include="HotFix_Project\HotFix\Data1\Chat.cs" />
     <Compile Include="HotFix_Project\HotFix\Data1\Dumper.cs" />
-    <Compile Include="HotFix_Project\HotFix\Data1\GxTest.cs" />
-    <Compile Include="HotFix_Project\HotFix\Data1\GxTestOther.cs" />
+    <Compile Include="HotFix_Project\HotFix\Data1\Mase.cs" />
     <Compile Include="HotFix_Project\HotFix\Data1\TestPB.cs" />
     <Compile Include="HotFix_Project\HotFix\Data\CSOutput\BufferCode\t_AuthorInfo10Buffer.cs" />
     <Compile Include="HotFix_Project\HotFix\Data\CSOutput\BufferCode\t_AuthorInfo2Buffer.cs" />
@@ -170,6 +169,7 @@
   <PropertyGroup>
     <PostBuildEvent>copy /Y "$(TargetDir)$(ProjectName).dll" "$(ProjectDir).././Assets\StreamingAssets\$(TargetName).awb"
 copy /Y "$(TargetDir)$(ProjectName).pdb" "$(ProjectDir).././Assets\StreamingAssets\$(TargetName)_PDB.awb"
+copy /Y "$(TargetDir)$(ProjectName).dll" "$(ProjectDir).././Assets\AssetsPackage\HfModule\$(TargetName).bytes"
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

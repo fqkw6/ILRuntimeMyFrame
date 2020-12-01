@@ -1,20 +1,17 @@
 ﻿using System.IO;
 
 using Google.Protobuf;
-using GxTest;
-
+using Message;
+using UnityEngine;
 public class TestPB
 {
 
     public static void Start()
     {
-        gx_data obj = new gx_data()
+        myperson obj = new myperson()
         {
-            ScBool = true,
-            ScFloat = 1.03f,
-            ScInt32 = 3222,
-            ScString = "khehehe",
-            RepInt32 = { 1, 2, 3, 4, 5 }
+         
+            Id = 3222,
         };
 
         //var mem = new MemoryStream();
@@ -26,9 +23,10 @@ public class TestPB
 
         byte[] s=ProtoBufferTool .Serialize(obj);
 
-        gx_data d = ProtoBufferTool.Deserialize(gx_data.Parser, s) as gx_data;
-        Dumper.Dump(d);
+        myperson d = ProtoBufferTool.Deserialize(myperson.Parser, s) as myperson;
 
+        // Dumper.Dump(d);
+        Debug.LogError(d.Id+"ddddd");
     }
 
    

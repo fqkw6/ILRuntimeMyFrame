@@ -9,11 +9,15 @@ using scg = global::System.Collections.Generic;
 namespace GxTestOther {
 
   #region Messages
-  public partial class gx_data_other : pb::IMessage {
+  public sealed class gx_data_other : pb::IMessage {
     private static readonly pb::MessageParser<gx_data_other> _parser = new pb::MessageParser<gx_data_other>(() => new gx_data_other());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<gx_data_other> Parser { get { return _parser; } }
 
+    /// <summary>Field number for the "sc_float" field.</summary>
+    public const int ScFloatFieldNumber = 2;
     private float scFloat_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public float ScFloat {
       get { return scFloat_; }
       set {
@@ -21,7 +25,10 @@ namespace GxTestOther {
       }
     }
 
+    /// <summary>Field number for the "sc_int32" field.</summary>
+    public const int ScInt32FieldNumber = 3;
     private int scInt32_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int ScInt32 {
       get { return scInt32_; }
       set {
@@ -29,7 +36,10 @@ namespace GxTestOther {
       }
     }
 
+    /// <summary>Field number for the "sc_string" field.</summary>
+    public const int ScStringFieldNumber = 6;
     private string scString_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string ScString {
       get { return scString_; }
       set {
@@ -37,6 +47,7 @@ namespace GxTestOther {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       if (ScFloat != 0F) {
         output.WriteRawTag(21);
@@ -52,6 +63,7 @@ namespace GxTestOther {
       }
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
       if (ScFloat != 0F) {
@@ -66,6 +78,7 @@ namespace GxTestOther {
       return size;
     }
 
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
       uint tag;
       while ((tag = input.ReadTag()) != 0) {

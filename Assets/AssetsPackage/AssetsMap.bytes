@@ -26,6 +26,7 @@ effect/common.assetbundle,Effect/Common/Texture/models_fx.png
 effect/common.assetbundle,Effect/Common/Texture/models_fx_a.png
 effect/prefab/ui/ef_ui_pet_rank_yellow_test_prefab.assetbundle,Effect/Prefab/UI/ef_ui_pet_rank_yellow_test.prefab
 effect/prefab/ui/ef_ui_taskfinish_prefab.assetbundle,Effect/Prefab/UI/ef_ui_TaskFinish.prefab
+hfmodule.assetbundle,HfModule/HotFix_Project.bytes
 lua.assetbundle,Lua/AssetaddressConfig.lua.bytes
 lua.assetbundle,Lua/Common/Define.lua.bytes
 lua.assetbundle,Lua/Common/LuaUtil.lua.bytes
