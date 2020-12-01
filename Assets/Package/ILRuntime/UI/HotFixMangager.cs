@@ -145,27 +145,26 @@ public class HotFixMangager : Singleton<HotFixMangager>
             string path = AssetBundleUtility.PackagePathToAssetsPath("HfModule");
             string hotFixAssetbundleName = AssetBundleUtility.AssetBundlePathToAssetBundleName(path);
 
-            string url = Application.streamingAssetsPath + "/loading.xml";
-            UnityWebRequest webRequest = UnityWebRequest.Get(url);
-            yield return webRequest.SendWebRequest();
-            Debug.LogError(hotFixAssetbundleName);
-            if (webRequest.isNetworkError || webRequest.isHttpError)
-            {
-                Debug.LogError(webRequest.error+"ceds");
-            }
-            byte[] bbb = webRequest.downloadHandler.data;
-            AssetBundle bb = AssetBundle.LoadFromMemory(bbb);
-            TextAsset textAsset = bb.LoadAsset<TextAsset>("HotFix_Project.bytes");
-            //AssetBundleManager.Instance.SetAssetBundleResident(hotFixAssetbundleName, true);
-            //var abloader = AssetBundleManager.Instance.LoadAssetBundleAsync(hotFixAssetbundleName);
-            //yield return abloader;
+            //string url = Application.streamingAssetsPath + "/loading.xml";
+            //UnityWebRequest webRequest = UnityWebRequest.Get(url);
+            //yield return webRequest.SendWebRequest();
+            //Debug.LogError(hotFixAssetbundleName);
+            //if (webRequest.isNetworkError || webRequest.isHttpError)
+            //{
+            //    Debug.LogError(webRequest.error+"ceds");
+            //}
+            //byte[] bbb = webRequest.downloadHandler.data;
+            //AssetBundle bb = AssetBundle.LoadFromMemory(bbb);
+            //TextAsset textAsset = bb.LoadAsset<TextAsset>("HotFix_Project.bytes");
+            AssetBundleManager.Instance.SetAssetBundleResident(hotFixAssetbundleName, true);
+            var abloader = AssetBundleManager.Instance.LoadAssetBundleAsync(hotFixAssetbundleName);
+            yield return abloader;
 
-            //byte[] dll_P = Load("HotFix_Project.txt");
-             byte[] dll_P = textAsset.bytes;
-            string buildpath = "Assets/StreamingAssets/loading.xml";
-            string build2path = "Assets/StreamingAssets/loading2.dll";
-             byte[] bytes = File.ReadAllBytes(buildpath);
-             File.WriteAllBytes(build2path, dll_P);
+            byte[] dll_P = Load("HotFix_Project.bytes");
+            //string buildpath = "Assets/StreamingAssets/loading.xml";
+            //string build2path = "Assets/StreamingAssets/loading2.dll";
+             //byte[] bytes = File.ReadAllBytes(buildpath);
+             //File.WriteAllBytes(build2path, dll_P);
              HotFixMangager.instance.InitApp(dll_P, null);
         }
 
