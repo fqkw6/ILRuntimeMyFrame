@@ -93,7 +93,7 @@ public class HotFixMangager : Singleton<HotFixMangager>
 
     public IEnumerator LoadHotFixAssembly()
     {
-        bool isEditor = true;
+        bool isEditor = false;
 
 #if UNITY_EDITOR
         isEditor = AssetBundleConfig.IsEditorMode;
