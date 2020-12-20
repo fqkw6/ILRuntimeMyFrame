@@ -1,46 +1,11 @@
 using UnityEngine;
-using PureMVC.Interfaces;
-using PureMVC.Patterns.Mediator;
-using UnityEngine.Playables;
-using UnityEngine.UI;
-using System.Collections;
-using System;
-using System.Collections.Generic;
 using UnityEngine.Events;
 
 /// <summary>
 /// 面板基类
 /// </summary>
-public abstract class UIPanelBase : Mediator ,IViewBase
+public abstract class UIPanelBase : IViewBase
 {
-
-    /// <summary>
-    /// 面板类型枚举，不同类型面板，会放置到不同的画板上
-    /// </summary>
-    public enum PanelType
-    {
-        /// <summary>
-        /// 无效面板
-        /// </summary>
-        None,
-        /// <summary>
-        /// HUD面板
-        /// </summary>
-        Hud,
-        /// <summary>
-        /// 普通面板
-        /// </summary>
-        Normal,
-        /// <summary>
-        /// 通知类面板
-        /// </summary>
-        Notice,
-		/// <summary>
-		/// 对话框面板
-		/// </summary>
-		Dialugue
-	}
-
     /// <summary>
     /// <see cref="GetAssetAddress()"/>
     /// </summary>
@@ -54,28 +19,30 @@ public abstract class UIPanelBase : Mediator ,IViewBase
     /// <summary>
     /// <see cref="GetGameObject()"/>
     /// </summary>
-    private GameObject m_GameObject;
+    private GameObject gameObject;
 
     /// <summary>
     /// <see cref="GetTransform()"/>
     /// </summary>
-    private Transform m_Transform;
+    private Transform transform;
 
-    
+    private PanelName m_PanelName ;
+
     /// <summary>
     /// 关闭时
     /// </summary>
     public UnityAction OnClosed;
 
     /// <summary>
-    /// 构造
+    /// 初始化
     /// </summary>
     /// <param name="panelName">面板名称（枚举）</param>
     /// <param name="assetAddress">面板资源地址</param>
-    public UIPanelBase(PanelName panelName, string assetAddress, PanelType panelType) : base(panelName)
+    public  UIPanelBase(PanelName panelName, string assetAddress, PanelType panelType) 
     {
         m_AssetAddress = assetAddress;
         m_PanelType = panelType;
+        m_PanelName = panelName;
     }
 
     /// <summary>
@@ -98,14 +65,21 @@ public abstract class UIPanelBase : Mediator ,IViewBase
     {
         return m_PanelType;
     }
-
+    /// <summary>
+    /// 获取面板名字
+    /// </summary>
+    /// <returns></returns>
+    public PanelName GetPanelName()
+    {
+        return m_PanelName;
+    }
     /// <summary>
     /// 获取面板GameObject
     /// </summary>
     public GameObject GetGameObject()
     {
         Debug.LogError("ceshi======");
-        return m_GameObject;
+        return gameObject;
     }
 
     /// <summary>
@@ -114,8 +88,8 @@ public abstract class UIPanelBase : Mediator ,IViewBase
     /// <param name="go">GameObject</param>
     public void SetGameObjectAndTransform(GameObject go)
     {
-        m_GameObject = go;
-        m_Transform = m_GameObject ? m_GameObject.transform : null;
+        gameObject = go;
+        transform = gameObject ? gameObject.transform : null;
     }
 
     /// <summary>
@@ -123,7 +97,7 @@ public abstract class UIPanelBase : Mediator ,IViewBase
     /// </summary>
     public Transform GetTransform()
     {
-        return m_Transform;
+        return transform;
     }
 
     /// <summary>
@@ -133,7 +107,7 @@ public abstract class UIPanelBase : Mediator ,IViewBase
     /// <returns>对应组件</returns>
     protected T FindComponent<T>(string path) where T : Component
     {
-        Transform result = m_Transform.Find(path);
+        Transform result = transform.Find(path);
         if (result == null)
         {
             return null;
@@ -157,64 +131,9 @@ public abstract class UIPanelBase : Mediator ,IViewBase
         return default(T);
     }
 
-    /// <summary>
-    /// 面板初始化，通常初始化该面板相关组件
-    /// </summary>
-    public virtual void Initialize()
-    {
+   
 
-    }
-
-    /// <summary>
-    /// 刷新面板内容
-    /// </summary>
-    /// <param name="msg">消息传递</param>
-    public virtual void OnRefresh(object msg)
-    {
-
-    }
-
-    /// <summary>
-    /// 面板显示时调用，通常注册消息监听
-    /// </summary>
-    /// <param name="msg">消息传递</param>
-    public virtual void OnShow(object msg)
-    {
-        m_GameObject.SetActive(true);
-        Facade.RegisterMediator(this);
-
-       // UIManager.Instance.SetAllCanvasInteractable(true);
-    }
-    
-    /// <summary>
-    /// 面板隐藏时调用，通常注销消息监听
-    /// </summary>
-    /// <param name="msg">消息传递</param>
-    public virtual void OnHide(object msg)
-    {
-        StopUpdate();
-      
-        Facade.RemoveMediator(Name);
-        m_GameObject.SetActive(false);
-
-    }
-
-    /// <summary>
-    /// 消息监听列表
-    /// </summary>
-    public override NotificationName[] ListNotificationInterests()
-    {
-        return base.ListNotificationInterests();
-    }
-
-    /// <summary>
-    /// 消息处理
-    /// </summary>
-    /// <param name="notification">消息</param>
-    public override void HandleNotification(PureMVC.Interfaces.INotification notification)
-    {
-
-    }
+   
 
 
     #region 协程处理
@@ -240,12 +159,12 @@ public abstract class UIPanelBase : Mediator ,IViewBase
 
     public virtual void Awake()
     {
-        
+        SetGameObjectAndTransform(gameObject);
     }
 
     public virtual void OnEnable()
     {
-        
+        gameObject.SetActive(true);
     }
 
     public virtual void Start()
@@ -255,7 +174,9 @@ public abstract class UIPanelBase : Mediator ,IViewBase
 
     public virtual void OnDisable()
     {
-       
+        StopUpdate();
+
+        gameObject.SetActive(false);
     }
 
 

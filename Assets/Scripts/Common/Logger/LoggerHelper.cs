@@ -90,8 +90,19 @@ public class LoggerHelper : MonoSingleton<LoggerHelper>
             }
             frontList.Clear();
         }
-    }
 
+        if (Input.GetMouseButtonDown(1))
+        {
+            HotFixMangager.instance.GetAppDomain().Invoke("HotFix_Project.HotManager", "StaticFunTest", null, null);
+            Debug.LogError("ceshiA");
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            HotFixMangager.instance.GetAppDomain().Invoke("HotFix_Project.HotManager", "StaticFunTestClose", null, null);
+
+            Debug.LogError("ceshiB");
+        }
+    }
     public override void Dispose()
     {
         lock (backList)

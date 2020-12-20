@@ -100,7 +100,7 @@ public class HotFixMangager : Singleton<HotFixMangager>
 #endif
         if (isEditor)
         {
-            WWW www = new WWW("file:///" + Application.streamingAssetsPath + "/HotFix_Project.awb");
+            WWW www = new WWW("file:///" + Application.streamingAssetsPath + "/HotFix_Project.awb");//.awb
             while (!www.isDone)
                 yield return null;
             if (!string.IsNullOrEmpty(www.error))
@@ -182,7 +182,7 @@ public class HotFixMangager : Singleton<HotFixMangager>
     void OnHotFixLoaded()
     {
         //启动热更代码的接口，静态方法调用
-        HotFixMangager.instance.GetAppDomain().Invoke("HotFix_Project.InstanceClass", "StaticFunTest", null, null);
+        HotFixMangager.instance.GetAppDomain().Invoke("HotFix_Project.HotManager", "HotInitialize", null, null);
 
     }
     #endregion

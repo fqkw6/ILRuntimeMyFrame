@@ -1,60 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UnityEngine.UI;
 using UnityEngine;
 using Data;
 namespace HotFix_Project
 {
-    public class InstanceClass
+    class HotManager
     {
-        private int id;
-
-        public InstanceClass()
+        public static void HotInitialize()
         {
-            UnityEngine.Debug.Log("!!! InstanceClass::InstanceClass()");
-            this.id = 0;
-        }
+            ILUIManager.Instance.Initialize();
 
-        public InstanceClass(int id)
-        {
-            UnityEngine.Debug.Log("!!! InstanceClass::InstanceClass() id = " + id);
-            this.id = id;
+            // onPrintAuthorInfoExcelData();
         }
-
-        public int ID
-        {
-            get { return id; }
-        }
-
-        // static method
         public static void StaticFunTest()
-        {
-            //ILUIManager.Instance.Initialize();
-        
-           // onPrintAuthorInfoExcelData();
-        }
-        public static void StaticFunTest2(int a)
         {
             UnityEngine.Debug.Log("!!! InstanceClass.Stat55555555icFunTest()");
 
             //ILUIManager.LoadUI<LoginPanel>("UI/Prefabs/View/UILaunch.prefab", "LoginPanel", null,null);
-            //ILUIManager.Instance.OpenPanel(PanelName.LoginPanel);
-            //TestPB.Start();
-            //onLoadAllExcelData();
+            ILUIManager.Instance.OpenPanel<LoginPanel>(PanelName.LoginPanel);
+            TestPB.Start();
+           // onLoadAllExcelData();
         }
 
-        public static void GenericMethod<T>(T a)
+        public static void StaticFunTestClose()
         {
-            UnityEngine.Debug.Log("!!! InstanceClass.GenericMethod(), a=" + a);
+            UnityEngine.Debug.Log("!!! InstanceClass.Stat55555555icFunTest()");
+            LoginPanel loginPanel = ILUIManager.Instance.GetPanel<LoginPanel>(PanelName.LoginPanel);
+            Debug.LogError(loginPanel.GetGameObject()+"-===-=-=");
+            ILUIManager.Instance.ClosePanel<LoginPanel>(PanelName.LoginPanel);
+         
+            // onLoadAllExcelData();
         }
-
-        public void RefOutMethod(int addition, out List<int> lst, ref int val)
-        {
-            val = val + addition + id;
-            lst = new List<int>();
-            lst.Add(id);
-        }
-
         /// <summary>
         /// 加载所有Excel数据
         /// </summary>
@@ -86,6 +66,4 @@ namespace HotFix_Project
             }
         }
     }
-
-
 }

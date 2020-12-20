@@ -1,10 +1,34 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using AssetBundles;
+/// <summary>
+/// 面板类型枚举，不同类型面板，会放置到不同的画板上
+/// </summary>
+public enum PanelType
+{
+    /// <summary>
+    /// 无效面板
+    /// </summary>
+    None,
+    /// <summary>
+    /// HUD面板
+    /// </summary>
+    Hud,
+    /// <summary>
+    /// 普通面板
+    /// </summary>
+    Normal,
+    /// <summary>
+    /// 通知类面板
+    /// </summary>
+    Notice,
+    /// <summary>
+    /// 对话框面板
+    /// </summary>
+    Dialugue
+}
+
 /// <summary>
 /// UI管理类
 /// 面板打开、关闭
@@ -13,6 +37,23 @@ using AssetBundles;
 public class ILUIManager 
 {
 
+    private static ILUIManager instance;
+
+    private ILUIManager()
+    {
+
+    }
+    public static ILUIManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance =new ILUIManager();
+            }
+            return instance;
+        }
+    }
     /// <summary>
     /// HUD面板层
     /// </summary>
@@ -53,17 +94,17 @@ public class ILUIManager
     /// <summary>
     /// HUD面板栈
     /// </summary>
-    private Stack<UIPanelBase> m_HudPanels = new Stack<UIPanelBase>();
+    private List<UIPanelBase> m_HudPanels = new List<UIPanelBase>();
 
     /// <summary>
     /// Normal面板栈
     /// </summary>
-    private Stack<UIPanelBase> m_NormalPanels = new Stack<UIPanelBase>();
+    private List<UIPanelBase> m_NormalPanels = new List<UIPanelBase>();
 
     /// <summary>
     /// Notice面板栈
     /// </summary>
-    private Stack<UIPanelBase> m_NoticePanels = new Stack<UIPanelBase>();
+    private List<UIPanelBase> m_NoticePanels = new List<UIPanelBase>();
 
     /// <summary>
     /// UI管理器初始化
@@ -75,8 +116,6 @@ public class ILUIManager
     /// </summary>
     public void Initialize()
     {
-       // gameObject.layer = LayerMask.NameToLayer("UI");
-
         CreateUICamera();
 
         m_HUDCanvas = CreateCanvas("HUDCanvas", 0);
@@ -87,10 +126,6 @@ public class ILUIManager
         m_UICacheRoot = uiCacheRoot.transform;
        // m_UICacheRoot.SetParent(transform);
 
-        // temp 后面要用新的输入系统，这里会进行调整
-       // gameObject.AddComponent<EventSystem>();
-       // gameObject.AddComponent<StandaloneInputModule>();
-        // end temp
     }
 
     /// <summary>
@@ -118,8 +153,8 @@ public class ILUIManager
     {
         GameObject go = new GameObject(name);
         UICanvas canvas = go.AddComponent<UICanvas>();
-       // go.transform.SetParent(transform);
-
+        // go.transform.SetParent(transform);
+        GameObject.DontDestroyOnLoad(go);
         canvas.SetCanvas(RenderMode.ScreenSpaceCamera, m_UICamera, order);
         canvas.SetCanvasScaler(CanvasScaler.ScaleMode.ScaleWithScreenSize, CanvasScaler.ScreenMatchMode.MatchWidthOrHeight, 0);
         canvas.SetLayer("UI");
@@ -127,72 +162,40 @@ public class ILUIManager
         return canvas;
     }
 
-
+   
     /// <summary>
     /// 打开面板
     /// </summary>
     /// <param name="panelName">面板名称（枚举）</param>
     /// <param name="msg">传递消息</param>
-    public void OpenPanel(PanelName panelName, object msg = null)
+    public void OpenPanel<T>(PanelName panelName, Action<UIPanelBase> callBack = null) where T : UIPanelBase,IViewBase
     {
         int panelIndex = (int)panelName;
-        UIPanelBase panel = m_Panels[panelIndex];
+        T panel = m_Panels[panelIndex] as T;
         if (panel == null)
         {
             Type type = Type.GetType(panelName.ToString());
-            panel = m_Panels[panelIndex] = Activator.CreateInstance(type) as UIPanelBase;
+            panel =  Activator.CreateInstance(type) as T;
+          
         }
 
         UICanvas canvas = GetCanvasFromPanelType(panel.GetPanelType());
-        Stack<UIPanelBase> stack = GetStackFromPanelType(panel.GetPanelType());
-
-        if (stack.Count > 0)
+        List<UIPanelBase> list = GetListFromPanelType(panel.GetPanelType());
+      
+        if (!list.Contains(panel))
         {
-            UIPanelBase stackTopPanel = stack.Peek();
-            if (stackTopPanel.Name.Equals(panel.Name))
-            {
-                Debug.LogErrorFormat("{0} already opened !", stackTopPanel.Name);
-                return;
-            }
-        }
-
-        if (panel.GetGameObject() == null)
-        {
-            GameObject uiPrefab = null;
-            if (m_Prefabs.TryGetValue(panel.GetAssetAddress(), out uiPrefab))
-            {
-                panel.SetGameObjectAndTransform(uiPrefab);
-                panel.GetTransform().SetParent(canvas.transform, false);
-                panel.Initialize();
-                panel.OnShow(msg);
-                panel.OnRefresh(msg);
-
-                stack.Push(panel);
-            }
-            else
-            {
-                //AssetBundleManager.Instance.LoadAssetAsync
-                //AssetManager.Instantiate(panel.GetAssetAddress(), canvas.transform, false, (IAsyncOperation<GameObject> prefab) =>
-                //{
-                //    m_Prefabs[panel.GetAssetAddress()] = prefab.Result;
-
-                //    panel.SetGameObjectAndTransform(prefab.Result);
-                //    panel.Initialize();
-                //    panel.OnShow(msg);
-                //    panel.OnRefresh(msg);
-
-                //    stack.Push(panel);
-                //});
-            }
+         UIMangager.Instance.OpenUI<T>(panelIndex, panel.GetAssetAddress(), panelName.ToString(), canvas.transform, callBack);
         }
         else
         {
-            panel.GetTransform().SetParent(canvas.transform);
-            panel.OnShow(msg);
-            panel.OnRefresh(msg);
-
-            stack.Push(panel);
+            Debug.LogError("已经加载过该面板="+ panelName);
         }
+        m_Panels[panelIndex] = panel;
+    }
+
+    public T GetPanel<T>(PanelName panelName) where T : UIPanelBase, IViewBase
+    {
+        return UIMangager.Instance.GetUIPanel<T>((int)panelName);
     }
 
     /// <summary>
@@ -200,15 +203,15 @@ public class ILUIManager
     /// </summary>
     /// <param name="panelType">面板类型</param>
     /// <returns>对应Canvas</returns>
-    private UICanvas GetCanvasFromPanelType(UIPanelBase.PanelType panelType)
+    private UICanvas GetCanvasFromPanelType(PanelType panelType)
     {
         switch (panelType)
         {
-            case UIPanelBase.PanelType.Hud:
+            case PanelType.Hud:
                 return m_HUDCanvas;
-            case UIPanelBase.PanelType.Normal:
+            case PanelType.Normal:
                 return m_PanelCanvas;
-            case UIPanelBase.PanelType.Notice:
+            case PanelType.Notice:
                 return m_NoticeCanvas;
             default:
                 Debug.LogErrorFormat("GetCanvasFromPanelType => {0}!", panelType);
@@ -217,23 +220,41 @@ public class ILUIManager
     }
 
     /// <summary>
-    /// 通过面板类型查找对应的Stack
+    /// 通过面板类型查找对应的List
     /// </summary>
     /// <param name="panelType">面板类型</param>
-    /// <returns>对应Stack</returns>
-    private Stack<UIPanelBase> GetStackFromPanelType(UIPanelBase.PanelType panelType)
+    /// <returns>对应List</returns>
+    private List<UIPanelBase> GetListFromPanelType(PanelType panelType)
     {
         switch (panelType)
         {
-            case UIPanelBase.PanelType.Hud:
+            case PanelType.Hud:
                 return m_HudPanels;
-            case UIPanelBase.PanelType.Normal:
+            case PanelType.Normal:
                 return m_NormalPanels;
-            case UIPanelBase.PanelType.Notice:
+            case PanelType.Notice:
                 return m_NoticePanels;
             default:
-                Debug.LogErrorFormat("GetStackFromPanelType => {0}!", panelType);
+                Debug.LogErrorFormat("GetListFromPanelType => {0}!", panelType);
                 return null;
+        }
+    }
+
+    public void ClosePanel<T>(PanelName panelName) where T : UIPanelBase, IViewBase
+    {
+        int panelIndex = (int)panelName;
+        T panel = m_Panels[panelIndex] as T;
+      
+        List<UIPanelBase> list = GetListFromPanelType(panel.GetPanelType());
+        int count = list.Count;
+        UIMangager.Instance.CloseUI(panelIndex);
+        for (int i = 0; i < count; i++)
+        {
+            if (list[i].GetPanelName() == panelName)
+            {
+                list.Remove(list[i]);
+              
+            }
         }
     }
 
@@ -242,33 +263,23 @@ public class ILUIManager
     /// </summary>
     /// <param name="panelType">面板类型</param>
     /// <param name="msg">传递消息</param>
-    public void ClosePanel(UIPanelBase.PanelType panelType, object msg = null)
+    public void CloseAllPanel(PanelType panelType, object msg = null)
     {
-        Stack<UIPanelBase> stack = GetStackFromPanelType(panelType);
-        UIPanelBase panel = stack.Pop();
-        panel.OnHide(msg);
-        panel.GetTransform().SetParent(m_UICacheRoot);
+        List<UIPanelBase> List = GetListFromPanelType(panelType);
+        int count = List.Count - 1;
+        for (int i = count; i >=0; i--)
+        {
+            List.RemoveAt(i);
+        }
     }
 
-    public void ShowHUD()
-    {
-        m_HUDCanvas.Show();
-    }
-
-    public void HideHUD()
-    {
-        m_HUDCanvas.Hide();
-    }
-
+   
     /// <summary>
     /// 关闭所有HUD面板
     /// </summary>
     public void CloseAllHUDPanel()
     {
-        while (m_HudPanels.Count > 0)
-        {
-            ClosePanel(UIPanelBase.PanelType.Hud);
-        }
+        CloseAllPanel(PanelType.Hud);
     }
 
     /// <summary>
@@ -276,10 +287,7 @@ public class ILUIManager
     /// </summary>
     public void CloseAllNormalPanel()
     {
-        while (m_NormalPanels.Count > 0)
-        {
-            ClosePanel(UIPanelBase.PanelType.Normal);
-        }
+        CloseAllPanel(PanelType.Normal);
     }
 
     /// <summary>
@@ -287,10 +295,7 @@ public class ILUIManager
     /// </summary>
     public void CloseAllNoticePanel()
     {
-        while (m_NoticePanels.Count > 0)
-        {
-            ClosePanel(UIPanelBase.PanelType.Notice);
-        }
+        CloseAllPanel(PanelType.Notice);
     }
 
     /// <summary>
@@ -302,9 +307,28 @@ public class ILUIManager
         CloseAllNormalPanel();
         CloseAllHUDPanel();
     }
-
-    public static void OpenPanel<T>(string realPath, string className, Transform parent, Action<T> callBack = null) where T : IViewBase
+   /// <summary>
+   /// 加载面板调用主工程
+   /// </summary>
+   /// <typeparam name="T"></typeparam>
+   /// <param name="realPath"></param>
+   /// <param name="parent"></param>
+   /// <param name="callBack"></param>
+    public static void LoadUI<T>(string realPath,  Transform parent, Action<T> callBack = null) where T : IViewBase
     {
-        UIMangager.OpenPanel<T>(realPath,className,parent,callBack);
+        string className = typeof(T).ToString();
+        LoadUI(realPath, className, parent, callBack);
+    }
+    /// <summary>
+    /// 加载面板
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="realPath"></param>
+    /// <param name="className"></param>
+    /// <param name="parent"></param>
+    /// <param name="callBack"></param>
+    public static void LoadUI<T>(string realPath, string className, Transform parent, Action<T> callBack = null) where T : IViewBase
+    {
+        UIMangager.Instance.LoadUI<T>(realPath,className,parent,callBack);
     }
 }

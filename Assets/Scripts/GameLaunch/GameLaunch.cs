@@ -39,7 +39,7 @@ public class GameLaunch : MonoBehaviour
 
 
     }
-
+    
     private void OnEnable()
     {
         // 启动ugui图集管理器

@@ -1,20 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine;
+
 class LoginPanel : UIPanelBase
 {
-    public LoginPanel(PanelName panelName, string assetAddress, PanelType panelType) : base(panelName, assetAddress, panelType)
+    private const string assetAddress= "UI/Prefabs/View/UILaunch.prefab";
+    public LoginPanel() : base(PanelName.LoginPanel, assetAddress, PanelType.Normal)
     {
+
+    }
+    public override void OnEnable()
+    {
+        base.OnEnable();
+    }
+    public override void OnDisable()
+    {
+        base.OnDisable();
     }
 
     public override void Start()
     {
         RawImage rawImage = FindComponent<RawImage>("BgRoot/BG");
-        Debug.LogError(rawImage);
+        Debug.LogError(rawImage+"ceshi====");
+        Debug.LogError(GetGameObject());
     }
 
 }
