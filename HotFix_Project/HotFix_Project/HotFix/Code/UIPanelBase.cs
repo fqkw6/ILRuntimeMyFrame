@@ -131,12 +131,7 @@ public abstract class UIPanelBase : IViewBase
         return default(T);
     }
 
-   
 
-   
-
-
-    #region 协程处理
 
     /// <summary>
     /// 开始更新
@@ -164,6 +159,7 @@ public abstract class UIPanelBase : IViewBase
 
     public virtual void OnEnable()
     {
+        AddListener();
         gameObject.SetActive(true);
     }
 
@@ -175,7 +171,7 @@ public abstract class UIPanelBase : IViewBase
     public virtual void OnDisable()
     {
         StopUpdate();
-
+        RemoveListener();
         gameObject.SetActive(false);
     }
 
@@ -195,7 +191,14 @@ public abstract class UIPanelBase : IViewBase
        
     }
 
-    #endregion
 
+    public virtual void AddListener()
+    {
 
+    }
+    public virtual void RemoveListener()
+    {
+
+    }
+    
 }

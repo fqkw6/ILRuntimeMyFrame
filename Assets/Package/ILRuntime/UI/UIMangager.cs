@@ -126,34 +126,19 @@ public class UIMangager
     }
 
     /// <summary>
-    /// 废弃打开面板
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="realPath"></param>
-    /// <param name="className"></param>
-    /// <param name="parent"></param>
-    /// <param name="callBack"></param>
-    public  void OpenPanel<T>(string realPath, string className,Transform parent, Action<T> callBack = null) where T : IViewBase
-    {
-        LoadUI<T>(realPath,className, parent,callBack);
-    }
-
-
-    /// <summary>
     /// HUD面板栈
     /// </summary>
     private Dictionary<int, IViewBase> mDicPanels = new Dictionary<int, IViewBase>();
 
-    public  void OpenPanel<T>(int panelId, string className,string realPath,Transform parent, Action<T> callBack = null) where T : IViewBase
-    {
-        OpenUI<T>(panelId, realPath, className, parent, callBack);
-       
-    }
-
     public void OpenUI<T>(int panelId,string realPath, string className, Transform parent, Action<T> callBack) where T : IViewBase
     {
         GameObject go = null;
-        AssetBundleManager.Instance.LoadAssetAsync<GameObject>(realPath, (obj) =>
+        if (mDicPanels.ContainsKey(panelId))
+        {
+            Debug.LogError("已经打开过该面板"+className);
+            return;
+        }
+       AssetBundleManager.Instance.LoadAssetAsync<GameObject>(realPath, (obj) =>
         {
             T viewT = default(T);
             go = obj as GameObject;

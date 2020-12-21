@@ -53,9 +53,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HotFix_Project\HotFix\Code\Frame\HotManager.cs" />
+    <Compile Include="HotFix_Project\HotFix\Code\Frame\ILEnumMain.cs" />
     <Compile Include="HotFix_Project\HotFix\Code\ILUIManager.cs" />
     <Compile Include="HotFix_Project\HotFix\Code\LoginPanel.cs" />
-    <Compile Include="HotFix_Project\HotFix\Code\UICanvas.cs" />
+    <Compile Include="HotFix_Project\HotFix\Code\PanelName.cs" />
     <Compile Include="HotFix_Project\HotFix\Code\UIPanelBase.cs" />
     <Compile Include="HotFix_Project\HotFix\Data1\Chat.cs" />
     <Compile Include="HotFix_Project\HotFix\Data1\Dumper.cs" />
@@ -122,30 +124,6 @@
     <Compile Include="HotFix_Project\HotFix\Data\CSTemplateOutput\t_Global8Container.cs" />
     <Compile Include="HotFix_Project\HotFix\Data\CSTemplateOutput\t_Global9Container.cs" />
     <Compile Include="HotFix_Project\HotFix\Data\CSTemplateOutput\t_GlobalContainer.cs" />
-    <Compile Include="HotFix_Project\HotFix\PureMVC\Core\Controller.cs" />
-    <Compile Include="HotFix_Project\HotFix\PureMVC\Core\Model.cs" />
-    <Compile Include="HotFix_Project\HotFix\PureMVC\Core\NotificationName.cs" />
-    <Compile Include="HotFix_Project\HotFix\PureMVC\Core\ProxyName.cs" />
-    <Compile Include="HotFix_Project\HotFix\PureMVC\Core\UIPanel.cs" />
-    <Compile Include="HotFix_Project\HotFix\PureMVC\Core\View.cs" />
-    <Compile Include="HotFix_Project\HotFix\PureMVC\Interfaces\ICommand.cs" />
-    <Compile Include="HotFix_Project\HotFix\PureMVC\Interfaces\IController.cs" />
-    <Compile Include="HotFix_Project\HotFix\PureMVC\Interfaces\IFacade.cs" />
-    <Compile Include="HotFix_Project\HotFix\PureMVC\Interfaces\IMediator.cs" />
-    <Compile Include="HotFix_Project\HotFix\PureMVC\Interfaces\IModel.cs" />
-    <Compile Include="HotFix_Project\HotFix\PureMVC\Interfaces\INotification.cs" />
-    <Compile Include="HotFix_Project\HotFix\PureMVC\Interfaces\INotifier.cs" />
-    <Compile Include="HotFix_Project\HotFix\PureMVC\Interfaces\IObserver.cs" />
-    <Compile Include="HotFix_Project\HotFix\PureMVC\Interfaces\IProxy.cs" />
-    <Compile Include="HotFix_Project\HotFix\PureMVC\Interfaces\IView.cs" />
-    <Compile Include="HotFix_Project\HotFix\PureMVC\Patterns\Command\MacroCommand.cs" />
-    <Compile Include="HotFix_Project\HotFix\PureMVC\Patterns\Command\SimpleCommand.cs" />
-    <Compile Include="HotFix_Project\HotFix\PureMVC\Patterns\Facade\Facade.cs" />
-    <Compile Include="HotFix_Project\HotFix\PureMVC\Patterns\Mediator\Mediator.cs" />
-    <Compile Include="HotFix_Project\HotFix\PureMVC\Patterns\Observer\Notification.cs" />
-    <Compile Include="HotFix_Project\HotFix\PureMVC\Patterns\Observer\Notifier.cs" />
-    <Compile Include="HotFix_Project\HotFix\PureMVC\Patterns\Observer\Observer.cs" />
-    <Compile Include="HotFix_Project\HotFix\PureMVC\Patterns\Proxy\Proxy.cs" />
     <Compile Include="HotFix_Project\HotFix\Test\InstanceClass.cs" />
     <Compile Include="HotFix_Project\HotFix\Test\TestCLRBinding.cs" />
     <Compile Include="HotFix_Project\HotFix\Test\TestCLRRedirection.cs" />

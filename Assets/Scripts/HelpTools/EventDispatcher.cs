@@ -7,7 +7,10 @@ using UnityEngine;
 public class EventDispatcher
 {
     public delegate void EventHandler(params object[] objs);
-    private Dictionary<EventEnum, EventHandler> listeners = new Dictionary<EventEnum, EventHandler>();
+    private Dictionary<int, EventHandler> listeners = new Dictionary<int, EventHandler>();
+
+
+    public delegate void EventHandler_t<T>(T arg);
 
     private static EventDispatcher globalDispatcher = new EventDispatcher();
     public static EventDispatcher Global
@@ -18,7 +21,7 @@ public class EventDispatcher
         }
     }
 
-    void AddEventListener(EventEnum evt, EventHandler handler)
+    void AddEventListener(int evt, EventHandler handler)
     {
         if (handler == null)
         {
@@ -32,7 +35,7 @@ public class EventDispatcher
             listeners.Add(evt, handler);
     }
 
-    void RemoveEventListener(EventEnum evt, EventHandler handler)
+    void RemoveEventListener(int evt, EventHandler handler)
     {
         if (handler == null)
         {
@@ -56,7 +59,7 @@ public class EventDispatcher
     private int stackDeep = 0;
     private readonly string szErrorMessage = "DispatchEvent Error, Event:{0}, Error:{1}\n{2}";
 
-    public void DispatchEvent(EventEnum evt, params object[] objs)
+    public void DispatchEvent(int evt, params object[] objs)
     {
 
         try
@@ -80,22 +83,22 @@ public class EventDispatcher
         }
     }
 
-    public void Regist(EventEnum evt, EventHandler handler)
+    public void Regist(int evt, EventHandler handler)
     {
         AddEventListener(evt, handler);
     }
 
-    public void Unregist(EventEnum evt, EventHandler handler)
+    public void Unregist(int evt, EventHandler handler)
     {
         RemoveEventListener(evt, handler);
     }
 
-    public bool HasEvent(EventEnum evt)
+    public bool HasEvent(int evt)
     {
         return listeners.ContainsKey(evt);
     }
 
-    public void ClearEvent(EventEnum evt)
+    public void ClearEvent(int evt)
     {
         if (HasEvent(evt))
         {

@@ -45,6 +45,9 @@ public class HotFixMangager : Singleton<HotFixMangager>
         //重新定向
 
     }
+    /// <summary>
+    /// 注册委托
+    /// </summary>
     private void RegisterDelegates()
     {
         mAppDomain.DelegateManager.RegisterMethodDelegate<IViewBaseAdaptor.Adaptor>();
@@ -53,6 +56,21 @@ public class HotFixMangager : Singleton<HotFixMangager>
         mAppDomain.DelegateManager.RegisterMethodDelegate<Adapt_IMessage.Adaptor>();
 
         mAppDomain.DelegateManager.RegisterFunctionDelegate<System.Int32, System.Int32>();
+
+        mAppDomain.DelegateManager.RegisterDelegateConvertor<EventCode.EventCallBack>((act) =>
+        {
+            return new EventCode.EventCallBack(() =>
+            {
+                ((Action)act)();
+            });
+        });
+        mAppDomain.DelegateManager.RegisterDelegateConvertor<EventCode.EventCallBack>((act) =>
+        {
+            return new EventCode.EventCallBack<object>((obj) =>
+            {
+                ((Action<object>)act)(obj);
+            });
+        });
 
     }
     /// <summary>

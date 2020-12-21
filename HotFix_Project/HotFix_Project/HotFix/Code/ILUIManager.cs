@@ -184,7 +184,8 @@ public class ILUIManager
       
         if (!list.Contains(panel))
         {
-         UIMangager.Instance.OpenUI<T>(panelIndex, panel.GetAssetAddress(), panelName.ToString(), canvas.transform, callBack);
+            UIMangager.Instance.OpenUI<T>(panelIndex, panel.GetAssetAddress(), panelName.ToString(), canvas.transform, callBack);
+            list.Add(panel);
         }
         else
         {
