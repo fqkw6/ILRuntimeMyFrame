@@ -3,13 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace EventCode
 {
-    public delegate void EventCallBack();
-    public delegate void EventCallBack<T>(T arg);
-    public delegate void EventCallBack<T, X>(T arg1, X arg2);
-    public delegate void EventCallBack<T, X, Y>(T arg1, X arg2, Y arg3);
-    public delegate void EventCallBack<T, X, Y, Z>(T arg1, X arg2, Y arg3, Z arg4);
-    public delegate void EventCallBack<T, X, Y, Z, W>(T arg1, X arg2, Y arg3, Z arg4, W arg5);
-    //public delegate void EventCallBack(params object[] param);
+   
+    //public delegate void Action(params object[] param);
     public class EventCenter
     {
 
@@ -24,7 +19,7 @@ namespace EventCode
             Delegate d = m_EventTable[id];
             if (d != null && d.GetType() != callBack.GetType())
             {
-                throw new Exception(string.Format("尝试为事件{0}添加不同类型的委托，当前事件所对应的委托是{1}，要添加的委托类型为{2}", id, d.GetType(), callBack.GetType()));
+                throw new Exception(string.Format("尝试为事件=={0}==添加不同类型的委托，当前事件所对应的委托是=={1}==，要添加的委托类型为=={2}==", id, d.GetType(), callBack.GetType()));
             }
         }
         private static void OnListenerRemoving(int id, Delegate callBack)
@@ -54,82 +49,82 @@ namespace EventCode
             }
         }
         //no parameters
-        public static void AddListener(int id, EventCallBack callBack)
+        public static void AddListener(int id, Action callBack)
         {
             OnListenerAdding(id, callBack);
-            m_EventTable[id] = (EventCallBack)m_EventTable[id] + callBack;
+            m_EventTable[id] = (Action)m_EventTable[id] + callBack;
         }
         //Single parameters
-        public static void AddListener<T>(int id, EventCallBack<T> callBack)
+        public static void AddListener<T>(int id, Action<T> callBack)
         {
             OnListenerAdding(id, callBack);
-            m_EventTable[id] = (EventCallBack<T>)m_EventTable[id] + callBack;
+            m_EventTable[id] = (Action<T>)m_EventTable[id] + callBack;
         }
         //two parameters
-        public static void AddListener<T, X>(int id, EventCallBack<T, X> callBack)
+        public static void AddListener<T, X>(int id, Action<T, X> callBack)
         {
             OnListenerAdding(id, callBack);
-            m_EventTable[id] = (EventCallBack<T, X>)m_EventTable[id] + callBack;
+            m_EventTable[id] = (Action<T, X>)m_EventTable[id] + callBack;
         }
         //three parameters
-        public static void AddListener<T, X, Y>(int id, EventCallBack<T, X, Y> callBack)
+        public static void AddListener<T, X, Y>(int id, Action<T, X, Y> callBack)
         {
             OnListenerAdding(id, callBack);
-            m_EventTable[id] = (EventCallBack<T, X, Y>)m_EventTable[id] + callBack;
+            m_EventTable[id] = (Action<T, X, Y>)m_EventTable[id] + callBack;
         }
         //four parameters
-        public static void AddListener<T, X, Y, Z>(int id, EventCallBack<T, X, Y, Z> callBack)
+        public static void AddListener<T, X, Y, Z>(int id, Action<T, X, Y, Z> callBack)
         {
             OnListenerAdding(id, callBack);
-            m_EventTable[id] = (EventCallBack<T, X, Y, Z>)m_EventTable[id] + callBack;
+            m_EventTable[id] = (Action<T, X, Y, Z>)m_EventTable[id] + callBack;
         }
         //five parameters
-        public static void AddListener<T, X, Y, Z, W>(int id, EventCallBack<T, X, Y, Z, W> callBack)
+        public static void AddListener<T, X, Y, Z, W>(int id, Action<T, X, Y, Z, W> callBack)
         {
             OnListenerAdding(id, callBack);
-            m_EventTable[id] = (EventCallBack<T, X, Y, Z, W>)m_EventTable[id] + callBack;
+            m_EventTable[id] = (Action<T, X, Y, Z, W>)m_EventTable[id] + callBack;
         }
 
         //no parameters
-        public static void RemoveListener(int id, EventCallBack callBack)
+        public static void RemoveListener(int id, Action callBack)
         {
             OnListenerRemoving(id, callBack);
-            m_EventTable[id] = (EventCallBack)m_EventTable[id] - callBack;
+            m_EventTable[id] = (Action)m_EventTable[id] - callBack;
             OnListenerRemoved(id);
         }
         //single parameters
-        public static void RemoveListener<T>(int id, EventCallBack<T> callBack)
+        public static void RemoveListener<T>(int id, Action<T> callBack)
         {
             OnListenerRemoving(id, callBack);
-            m_EventTable[id] = (EventCallBack<T>)m_EventTable[id] - callBack;
+            m_EventTable[id] = (Action<T>)m_EventTable[id] - callBack;
             OnListenerRemoved(id);
         }
         //two parameters
-        public static void RemoveListener<T, X>(int id, EventCallBack<T, X> callBack)
+        public static void RemoveListener<T, X>(int id, Action<T, X> callBack)
         {
             OnListenerRemoving(id, callBack);
-            m_EventTable[id] = (EventCallBack<T, X>)m_EventTable[id] - callBack;
+            m_EventTable[id] = (Action<T, X>)m_EventTable[id] - callBack;
             OnListenerRemoved(id);
         }
         //three parameters
-        public static void RemoveListener<T, X, Y>(int id, EventCallBack<T, X, Y> callBack)
+        public static void RemoveListener<T, X, Y>(int id, Action<T, X, Y> callBack)
         {
             OnListenerRemoving(id, callBack);
-            m_EventTable[id] = (EventCallBack<T, X, Y>)m_EventTable[id] - callBack;
+            m_EventTable[id] = (Action<T, X, Y>)m_EventTable[id] - callBack;
             OnListenerRemoved(id);
         }
         //four parameters
-        public static void RemoveListener<T, X, Y, Z>(int id, EventCallBack<T, X, Y, Z> callBack)
+        public static void RemoveListener<T, X, Y, Z>(int id, Action<T, X, Y, Z> callBack)
         {
             OnListenerRemoving(id, callBack);
-            m_EventTable[id] = (EventCallBack<T, X, Y, Z>)m_EventTable[id] - callBack;
+            m_EventTable[id] = (Action<T, X, Y, Z>)m_EventTable[id] - callBack;
             OnListenerRemoved(id);
         }
         //five parameters
-        public static void RemoveListener<T, X, Y, Z, W>(int id, EventCallBack<T, X, Y, Z, W> callBack)
+        public static void RemoveListener<T, X, Y, Z, W>(int id, Action<T, X, Y, Z, W> callBack)
         {
             OnListenerRemoving(id, callBack);
-            m_EventTable[id] = (EventCallBack<T, X, Y, Z, W>)m_EventTable[id] - callBack;
+            m_EventTable[id] = (Action<T, X, Y, Z, W>)m_EventTable[id] - callBack;
             OnListenerRemoved(id);
         }
 
@@ -140,7 +135,7 @@ namespace EventCode
             Delegate d;
             if (m_EventTable.TryGetValue(id, out d))
             {
-                EventCallBack callBack = d as EventCallBack;
+                Action callBack = d as Action;
                 if (callBack != null)
                 {
                     callBack();
@@ -157,7 +152,7 @@ namespace EventCode
             Delegate d;
             if (m_EventTable.TryGetValue(id, out d))
             {
-                EventCallBack<T> callBack = d as EventCallBack<T>;
+                Action<T> callBack = d as Action<T>;
                 if (callBack != null)
                 {
                     callBack(arg);
@@ -174,7 +169,7 @@ namespace EventCode
             Delegate d;
             if (m_EventTable.TryGetValue(id, out d))
             {
-                EventCallBack<T, X> callBack = d as EventCallBack<T, X>;
+                Action<T, X> callBack = d as Action<T, X>;
                 if (callBack != null)
                 {
                     callBack(arg1, arg2);
@@ -191,7 +186,7 @@ namespace EventCode
             Delegate d;
             if (m_EventTable.TryGetValue(id, out d))
             {
-                EventCallBack<T, X, Y> callBack = d as EventCallBack<T, X, Y>;
+                Action<T, X, Y> callBack = d as Action<T, X, Y>;
                 if (callBack != null)
                 {
                     callBack(arg1, arg2, arg3);
@@ -208,7 +203,7 @@ namespace EventCode
             Delegate d;
             if (m_EventTable.TryGetValue(id, out d))
             {
-                EventCallBack<T, X, Y, Z> callBack = d as EventCallBack<T, X, Y, Z>;
+                Action<T, X, Y, Z> callBack = d as Action<T, X, Y, Z>;
                 if (callBack != null)
                 {
                     callBack(arg1, arg2, arg3, arg4);
@@ -225,7 +220,7 @@ namespace EventCode
             Delegate d;
             if (m_EventTable.TryGetValue(id, out d))
             {
-                EventCallBack<T, X, Y, Z, W> callBack = d as EventCallBack<T, X, Y, Z, W>;
+                Action<T, X, Y, Z, W> callBack = d as Action<T, X, Y, Z, W>;
                 if (callBack != null)
                 {
                     callBack(arg1, arg2, arg3, arg4, arg5);
