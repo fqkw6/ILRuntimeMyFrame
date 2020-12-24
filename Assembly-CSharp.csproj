@@ -647,6 +647,8 @@
     <Compile Include="Assets\Scripts\GameLaunch\AssetbundleUpdater.cs" />
     <Compile Include="Assets\Scripts\GameLaunch\GameLaunch.cs" />
     <Compile Include="Assets\Scripts\HelpTools\AtlasLoader.cs" />
+    <Compile Include="Assets\Scripts\HelpTools\CreateSprite.cs" />
+    <Compile Include="Assets\Scripts\HelpTools\CreateSpriteUnit.cs" />
     <Compile Include="Assets\Scripts\HelpTools\EventCenter.cs" />
     <Compile Include="Assets\Scripts\HelpTools\EventDispatcher.cs" />
     <Compile Include="Assets\Scripts\HelpTools\EventEnum.cs" />
@@ -817,6 +819,7 @@
     <Compile Include="Assets\Test\Scripts\LuaTest.cs" />
     <Compile Include="Assets\Test\TestCoroutine\TestCoroutine.cs" />
     <Compile Include="Assets\Test\TestProtoBuffer\XluaProtoGenLuaTest.cs" />
+    <Compile Include="Assets\TestFaceUIPanel.cs" />
     <Compile Include="Assets\Third\EasyTouchBundle\EasyTouch\Examples\4.X\AdvancedExamples\AutoSelect\MultiLayerTouch.cs" />
     <Compile Include="Assets\Third\EasyTouchBundle\EasyTouch\Examples\4.X\AdvancedExamples\AutoSelect\MultiLayerUI.cs" />
     <Compile Include="Assets\Third\EasyTouchBundle\EasyTouch\Examples\4.X\AdvancedExamples\MultiCamera\MultiCameraTouch.cs" />
