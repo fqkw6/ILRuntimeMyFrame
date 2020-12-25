@@ -1,20 +1,18 @@
-﻿using Networks;
+﻿using Google.Protobuf;
+using Message;
+using Networks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NetMessageBase
-{
-    public int MessageId;//消息头
-    public byte[] MessageBoby;//消息体
-}
+
 public class NetManager 
 {
     HjTcpNetwork hjTcpNetwork = new HjTcpNetwork();
     public void Init()
     {
-        hjTcpNetwork.ReceivePkgHandle = ProcessMessage;
-        RegisterNetModel();
+       
     }
     //注册
     public void RegisterNetModel()
@@ -34,9 +32,17 @@ public class NetManager
       //  ProtoBufferTool.Deserialize();
     }
 
-    public void SendMessage(int id, byte[] bytes)
+    public void SendMessage(uint id, byte [] msg)
     {
-        ByteBuffer send = new ByteBuffer(bytes);
+        ByteBuffer send = new ByteBuffer();
+        NetMessageBase netMessageBase = new NetMessageBase();
+        netMessageBase.MessageId = id;
+        netMessageBase.MessageBoby = ByteString.AttachBytes(msg);
+        byte[] by = ProtoBufferTool.Serialize(netMessageBase);
+       
+        send.WriteBytes(by);
+
+        hjTcpNetwork.SendMessage(send.ToBytes());
 
     }
     public void Update()
@@ -44,10 +50,33 @@ public class NetManager
         hjTcpNetwork.UpdateNetwork();
 
     }
-    public void Connect()
+    public void Connect(string ip,int port)
     {
-      
+        hjTcpNetwork.ReceivePkgHandle = ProcessMessage;
+        RegisterNetModel();
+        hjTcpNetwork.OnConnect = onConnect;
+        hjTcpNetwork.OnClosed = onClose;
+        hjTcpNetwork.SetHostPort(ip,port);
+        hjTcpNetwork.Connect();
+        Debug.LogError("Connect to " + ip + ", port :" + port);
     }
+
+    private void onClose(object arg1, int arg2, string arg3)
+    {
+        if (arg2 < 0)
+        {
+            Debug.LogError("Close err : " + arg3);
+        }
+    }
+
+    private void onConnect(object arg1, int arg2, string arg3)
+    {
+        if (arg2<0)
+        {
+            Debug.LogError("Connect err : " + arg3);
+        }
+    }
+
     public void Dispose()
     {
         hjTcpNetwork.Dispose();

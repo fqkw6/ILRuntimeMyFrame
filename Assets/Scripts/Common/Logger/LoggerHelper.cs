@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using XLua;
 using System;
+using Message;
+using Google.Protobuf;
 
 [Hotfix]
 public class LoggerHelper : MonoSingleton<LoggerHelper>
@@ -95,12 +97,31 @@ public class LoggerHelper : MonoSingleton<LoggerHelper>
         {
             HotFixMangager.instance.GetAppDomain().Invoke("HotFix_Project.HotManager", "StaticFunTest", null, null);
             Debug.LogError("ceshiA");
+            Role.role_info role_Info1 = new Role.role_info();
+            role_Info1.Level = 15;
+            role_Info1.Name = "woshi";
+            role_Info1.RoomId = 100;
+            role_Info1.Score = 90;
+
+            byte[] msg = ProtoBufferTool.Serialize(role_Info1);
+            NetMessageBase netMessageBase = new NetMessageBase();
+            netMessageBase.MessageId = 200;
+            netMessageBase.MessageBoby = ByteString.CopyFrom(msg);
+            byte[] by = ProtoBufferTool.Serialize(netMessageBase);
+
+            NetMessageBase newooo = ProtoBufferTool.Deserialize(NetMessageBase.Parser, by) as NetMessageBase;
+            Debug.LogError(newooo.MessageId + "==newooo.MessageId==");
+            Role.role_info info1 = ProtoBufferTool.Deserialize(Role.role_info.Parser, newooo.MessageBoby.ToByteArray()) as Role.role_info;
+            Debug.LogError(info1.Name + "==info1.Name ==");
+
+
         }
         if (Input.GetMouseButtonDown(0))
         {
             HotFixMangager.instance.GetAppDomain().Invoke("HotFix_Project.HotManager", "StaticFunTestClose", null, null);
 
             Debug.LogError("ceshiB");
+
         }
     }
     public override void Dispose()

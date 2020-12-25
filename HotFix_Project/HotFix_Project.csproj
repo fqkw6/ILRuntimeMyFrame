@@ -62,6 +62,7 @@
     <Compile Include="HotFix_Project\HotFix\Data1\Chat.cs" />
     <Compile Include="HotFix_Project\HotFix\Data1\Dumper.cs" />
     <Compile Include="HotFix_Project\HotFix\Data1\Mase.cs" />
+    <Compile Include="HotFix_Project\HotFix\Data1\ReqGet.cs" />
     <Compile Include="HotFix_Project\HotFix\Data1\TestPB.cs" />
     <Compile Include="HotFix_Project\HotFix\Data\CSOutput\BufferCode\t_AuthorInfo10Buffer.cs" />
     <Compile Include="HotFix_Project\HotFix\Data\CSOutput\BufferCode\t_AuthorInfo2Buffer.cs" />

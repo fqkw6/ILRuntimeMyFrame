@@ -547,8 +547,10 @@
     <Compile Include="Assets\Samples\ILRuntime\Generated\xbuffer_stringBuffer_Binding.cs" />
     <Compile Include="Assets\Scripts\Base\NetModel\NetEnum.cs" />
     <Compile Include="Assets\Scripts\Base\NetModel\NetManager.cs" />
+    <Compile Include="Assets\Scripts\Base\NetModel\NetMessageBase.cs" />
     <Compile Include="Assets\Scripts\Base\NetModel\NetModelBase.cs" />
     <Compile Include="Assets\Scripts\Base\NetModel\ProtoBufferTool.cs" />
+    <Compile Include="Assets\Scripts\Base\NetModel\RoleInfo.cs" />
     <Compile Include="Assets\Scripts\Channel\AndoridSDKListener.cs" />
     <Compile Include="Assets\Scripts\Channel\AndroidSDKHelper.cs" />
     <Compile Include="Assets\Scripts\Channel\BaseChannel.cs" />

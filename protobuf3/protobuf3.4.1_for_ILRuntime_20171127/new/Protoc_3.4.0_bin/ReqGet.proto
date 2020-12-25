@@ -1,0 +1,11 @@
+syntax = "proto3";
+package Role;
+
+option java_package = "com.jedi.serverEngine.message";  
+option java_outer_classname = "PBRole";
+
+
+//客户端请求角色信息
+message ReqGet{	
+	string name = 1;
+}

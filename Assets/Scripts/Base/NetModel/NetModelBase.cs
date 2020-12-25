@@ -14,12 +14,12 @@ public class NetModelBase
     }
 
 
-    public void AddListening<T>(NetEnum netEnum, Action<T> action)
+    public void AddListening<T>(int netEnum, Action<T> action)
     {
 
     }
 
-    public void RemoveListening<T>(NetEnum netEnum, Action<T> action)
+    public void RemoveListening<T>(int netEnum, Action<T> action)
     {
 
     }

@@ -6,6 +6,13 @@ using UnityEngine;
 
 public class ProtoBufferTool
 {
+    /// <summary>
+    /// 解析
+    ///  NetMessageBase newooo = ProtoBufferTool.Deserialize(NetMessageBase.Parser, by) as NetMessageBase;
+    /// </summary>
+    /// <param name="_type"></param>
+    /// <param name="byteData"></param>
+    /// <returns></returns>
     public static IMessage Deserialize(MessageParser _type, byte[] byteData)
     {
         Stream stream = new MemoryStream(byteData);
@@ -18,6 +25,11 @@ public class ProtoBufferTool
         stream.Close();
         return default(IMessage);
     }
+    /// <summary>
+    /// 序列化
+    /// </summary>
+    /// <param name="_data"></param>
+    /// <returns></returns>
     public static byte[] Serialize(IMessage _data)
     {
         MemoryStream stream = new MemoryStream();

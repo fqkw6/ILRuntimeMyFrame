@@ -1,0 +1,12 @@
+syntax = "proto3";
+package Role;
+
+option java_package = "com.jedi.serverEngine.message";  
+option java_outer_classname = "PBRole";
+
+message role_info{
+	string name = 1;	//名字
+	uint32 level = 2; //官职等级
+	uint32 room_id = 3; //房间号，0表示不在房间
+	uint32 score = 4; //积分
+}
