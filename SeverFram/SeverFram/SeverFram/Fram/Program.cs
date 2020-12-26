@@ -1,9 +1,10 @@
-﻿using cs;
-using ProtoBuf;
+﻿using Google.Protobuf;
+using Message;
 using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using Role;
 namespace ConsoleApplication1
 {
     class Program
@@ -51,9 +52,9 @@ namespace ConsoleApplication1
         }
 
 
-        private static byte[] CreateData(int typeId, IExtensible pbuf)
+        private static byte[] CreateData(IMessage pbuf)
         {
-            byte[] pbdata = PackCodec.Serialize(pbuf);
+            byte[] pbdata = ProtoBufferTool.Serialize(pbuf);
             ByteBuffer buff = new ByteBuffer();
             buff.WriteInt(pbdata.Length);
             buff.WriteBytes(pbdata);
@@ -83,24 +84,24 @@ namespace ConsoleApplication1
                     // Console.WriteLine(typeId+"typeid");
                     //通过协议号判断选择的解析类
 
-                    CSMessage clientReq = PackCodec.Deserialize<CSMessage>(pbdata);
+                    NetMessageBase clientReq = ProtoBufferTool.DeserializeNew<NetMessageBase>(NetMessageBase.Parser, pbdata);
                     //ushort typeId = buff.ReadShort();
-                    Console.WriteLine(clientReq.TypeId + "typeId");
-                    CSLoginReq cSLoginReq = PackCodec.Deserialize<CSLoginReq>(clientReq.Data);
-                    Console.WriteLine("数据内容：UserName={0},PassWard={1}", cSLoginReq.UserName, cSLoginReq.Password);
-                    Console.WriteLine(cSLoginReq.IDList.Count);
-                    Console.WriteLine(cSLoginReq.IDList[1]);
-                    CSMessage cSMessage = new CSMessage();
-                    cSMessage.TypeId = 10001;
+                    Console.WriteLine(clientReq.MessageId + "typeId");
 
-                    CSLoginReq mLoginInfo = new CSLoginReq();
-                    mLoginInfo.UserName = "linshuhe";
-                    mLoginInfo.Password = "123456";
-                    System.Collections.Generic.List<uint> ulist = mLoginInfo.IDList;
-                    ulist.Add(12323);
-                    ulist.Add(1232334552);
-                    cSMessage.Data = PackCodec.Serialize<CSLoginReq>(mLoginInfo);
-                    byte[] data = CreateData((int)EnmCmdID.CS_LOGIN_REQ, cSMessage);
+                    role_info cSrole_info = ProtoBufferTool.DeserializeNew<role_info>(role_info.Parser, clientReq.MessageBoby.ToByteArray());
+                    Console.WriteLine("数据内容：Name={0},Level={1}", cSrole_info.Name, cSrole_info.Level);
+                    //Console.WriteLine(cSLoginReq.IDList.Count);
+                    //Console.WriteLine(cSLoginReq.IDList[1]);
+
+
+                    NetMessageBase cSMessage = new NetMessageBase();
+                    cSMessage.MessageId = 10001;
+
+                    role_info mLoginInfo = new role_info();
+                    mLoginInfo.Name = "fuwuqi";
+                    byte[] da= ProtoBufferTool.Serialize(mLoginInfo);
+                    cSMessage.MessageBoby = ByteString.CopyFrom(da);
+                    byte[] data = CreateData(cSMessage);
                     mClientSocket.Send(data);
                     Console.WriteLine(data.Length + "changdu");
 
