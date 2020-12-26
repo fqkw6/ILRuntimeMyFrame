@@ -31,7 +31,7 @@ class LoginPanel : UIPanelBase
 
         Role.ReqGet role_Info2 = new Role.ReqGet();
 
-        role_Info2.Name = "woshi";
+        role_Info2.Name = "woshilll尽快";
       
 
         byte[] msg1 = ProtoBufferTool.Serialize(role_Info2);
@@ -42,13 +42,14 @@ class LoginPanel : UIPanelBase
 
         NetMessageBase newooo = ProtoBufferTool.Deserialize(NetMessageBase.Parser, by1) as NetMessageBase;
         Debug.LogError(newooo.MessageId + "==newooo.MessageId==");
-        Role.ReqGet info2 = ProtoBufferTool.Deserialize(Role.ReqGet.Parser, newooo.MessageBoby.ToByteArray()) as Role.ReqGet;
+        Role.ReqGet info2 = ProtoBufferTool.DeserializeNew<Role.ReqGet>(Role.ReqGet.Parser, newooo.MessageBoby.ToByteArray());
         Debug.LogError(info2.Name + "==info2.Name ==");
 
-        EventManager.SendMessage((int)10000);
+      
         EventManager.SendMessage<Yu>((int)20000, new Yu() {name="WangBadao" });
         EventManager.SendMessage<Mu>((int)30000, new Mu() { name = "还记得" });
-
+        Debug.LogError(Parent + "==Parent=");
+        Debug.LogError(PanelId+ "==PanelId=");
     }
 
     public override void AddListener()
@@ -84,13 +85,13 @@ class LoginPanel : UIPanelBase
     }
     private void TestCCallBack(Mu arg1)
     {
-        Debug.LogError("收到主工程" + arg1.name);
+        Debug.LogError("收到主工程的类" + arg1.name);
         
     }
   
     private void TestCCallBack()
     {
-        Debug.LogError("收到");
+        Debug.LogError("收到主工程发来的消息");
     }
     private Dictionary<int, int> dic = new Dictionary<int, int>();
 

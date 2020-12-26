@@ -14,33 +14,33 @@ using ILRuntime.CLR.Utils;
 
 namespace ILRuntime.Runtime.Generated
 {
-    unsafe class System_Func_1_ILTypeInstance_Binding
+    unsafe class System_Collections_Generic_Dictionary_2_Int32_Int32_Binding_KeyCollection_Binding
     {
         public static void Register(ILRuntime.Runtime.Enviorment.AppDomain app)
         {
             BindingFlags flag = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly;
             MethodBase method;
             Type[] args;
-            Type type = typeof(System.Func<ILRuntime.Runtime.Intepreter.ILTypeInstance>);
+            Type type = typeof(System.Collections.Generic.Dictionary<System.Int32, System.Int32>.KeyCollection);
             args = new Type[]{};
-            method = type.GetMethod("Invoke", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, Invoke_0);
+            method = type.GetMethod("GetEnumerator", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, GetEnumerator_0);
 
 
         }
 
 
-        static StackObject* Invoke_0(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* GetEnumerator_0(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
             StackObject* __ret = ILIntepreter.Minus(__esp, 1);
 
             ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.Func<ILRuntime.Runtime.Intepreter.ILTypeInstance> instance_of_this_method = (System.Func<ILRuntime.Runtime.Intepreter.ILTypeInstance>)typeof(System.Func<ILRuntime.Runtime.Intepreter.ILTypeInstance>).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            System.Collections.Generic.Dictionary<System.Int32, System.Int32>.KeyCollection instance_of_this_method = (System.Collections.Generic.Dictionary<System.Int32, System.Int32>.KeyCollection)typeof(System.Collections.Generic.Dictionary<System.Int32, System.Int32>.KeyCollection).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
             __intp.Free(ptr_of_this_method);
 
-            var result_of_this_method = instance_of_this_method.Invoke();
+            var result_of_this_method = instance_of_this_method.GetEnumerator();
 
             return ILIntepreter.PushObject(__ret, __mStack, result_of_this_method);
         }

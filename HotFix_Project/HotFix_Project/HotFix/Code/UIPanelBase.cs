@@ -50,6 +50,19 @@ public abstract class UIPanelBase : IViewBase
     /// </summary>
     public bool IsPermanent;
 
+    public GameObject Parent
+    {
+        get { return transform.parent.gameObject; }
+        set { transform.parent = value.transform; }
+    }
+
+    private int panelId;
+    public int PanelId
+    {
+        get { return panelId; }
+        set { panelId = value; }
+    }
+
     /// <summary>
     /// 获取面板资源地址
     /// </summary>

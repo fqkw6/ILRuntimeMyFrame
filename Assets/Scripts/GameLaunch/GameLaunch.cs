@@ -45,6 +45,7 @@ public class GameLaunch : MonoBehaviour
         // 启动ugui图集管理器
         var start = DateTime.Now;
         AtlasLoader.Instance.Startup();
+        NetManager.Instance.Startup();
         Debug.Log(string.Format("SpriteAtlasManager Init use {0}ms", (DateTime.Now - start).Milliseconds));
     }
     IEnumerator Start()

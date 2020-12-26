@@ -19,4 +19,8 @@ public interface IViewBase
     void SetGameObject(GameObject go);
 
     GameObject GetGameObject();
+
+    GameObject Parent { get; set; }
+
+    int PanelId { get; set; }
 }

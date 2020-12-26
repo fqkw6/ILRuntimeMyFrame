@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Google.Protobuf;
+using Message;
+
 public class NetModelBase
 {
     public NetModelBase()
@@ -14,13 +17,13 @@ public class NetModelBase
     }
 
 
-    public void AddListening<T>(int netEnum, Action<T> action)
+    public void AddListening(uint netEnum, Action<NetMessageBase> action)
     {
-
+        NetManager.Instance.AddListening(netEnum, action);
     }
 
-    public void RemoveListening<T>(int netEnum, Action<T> action)
+    public void RemoveListening(uint netEnum, Action<NetMessageBase> action) 
     {
-
+        NetManager.Instance.RemoveListening(netEnum, action);
     }
 }

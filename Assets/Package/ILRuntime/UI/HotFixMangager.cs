@@ -61,6 +61,8 @@ public class HotFixMangager : Singleton<HotFixMangager>
         ///热更工程里的类 对应Action<T> 热更里的泛型类为 ILTypeInstance
         mAppDomain.DelegateManager.RegisterMethodDelegate<ILTypeInstance>();
 
+       // mAppDomain.DelegateManager.RegisterMethodDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance>();
+
         /// 例子 注册委托
         //    public delegate bool Predicete<T>(T arg);
         //    public delegate void Predicete<T, U>(T arg1, U arg2);

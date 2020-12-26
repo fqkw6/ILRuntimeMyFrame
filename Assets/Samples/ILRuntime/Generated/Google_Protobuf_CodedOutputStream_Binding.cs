@@ -25,27 +25,27 @@ namespace ILRuntime.Runtime.Generated
             args = new Type[]{typeof(System.Byte)};
             method = type.GetMethod("WriteRawTag", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, WriteRawTag_0);
-            args = new Type[]{typeof(System.UInt32)};
-            method = type.GetMethod("WriteUInt32", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, WriteUInt32_1);
-            args = new Type[]{typeof(System.UInt32)};
-            method = type.GetMethod("ComputeUInt32Size", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, ComputeUInt32Size_2);
-            args = new Type[]{typeof(System.UInt64)};
-            method = type.GetMethod("WriteUInt64", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, WriteUInt64_3);
             args = new Type[]{typeof(System.String)};
             method = type.GetMethod("WriteString", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, WriteString_4);
-            args = new Type[]{typeof(System.Int32)};
-            method = type.GetMethod("WriteEnum", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, WriteEnum_5);
-            args = new Type[]{typeof(System.UInt64)};
-            method = type.GetMethod("ComputeUInt64Size", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, ComputeUInt64Size_6);
+            app.RegisterCLRMethodRedirection(method, WriteString_1);
             args = new Type[]{typeof(System.String)};
             method = type.GetMethod("ComputeStringSize", flag, null, args, null);
-            app.RegisterCLRMethodRedirection(method, ComputeStringSize_7);
+            app.RegisterCLRMethodRedirection(method, ComputeStringSize_2);
+            args = new Type[]{typeof(System.UInt32)};
+            method = type.GetMethod("WriteUInt32", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, WriteUInt32_3);
+            args = new Type[]{typeof(System.UInt32)};
+            method = type.GetMethod("ComputeUInt32Size", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, ComputeUInt32Size_4);
+            args = new Type[]{typeof(System.UInt64)};
+            method = type.GetMethod("WriteUInt64", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, WriteUInt64_5);
+            args = new Type[]{typeof(System.Int32)};
+            method = type.GetMethod("WriteEnum", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, WriteEnum_6);
+            args = new Type[]{typeof(System.UInt64)};
+            method = type.GetMethod("ComputeUInt64Size", flag, null, args, null);
+            app.RegisterCLRMethodRedirection(method, ComputeUInt64Size_7);
             args = new Type[]{typeof(System.Int32)};
             method = type.GetMethod("ComputeEnumSize", flag, null, args, null);
             app.RegisterCLRMethodRedirection(method, ComputeEnumSize_8);
@@ -72,60 +72,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* WriteUInt32_1(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.UInt32 @value = (uint)ptr_of_this_method->Value;
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            Google.Protobuf.CodedOutputStream instance_of_this_method = (Google.Protobuf.CodedOutputStream)typeof(Google.Protobuf.CodedOutputStream).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            instance_of_this_method.WriteUInt32(@value);
-
-            return __ret;
-        }
-
-        static StackObject* ComputeUInt32Size_2(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.UInt32 @value = (uint)ptr_of_this_method->Value;
-
-
-            var result_of_this_method = Google.Protobuf.CodedOutputStream.ComputeUInt32Size(@value);
-
-            __ret->ObjectType = ObjectTypes.Integer;
-            __ret->Value = result_of_this_method;
-            return __ret + 1;
-        }
-
-        static StackObject* WriteUInt64_3(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.UInt64 @value = *(ulong*)&ptr_of_this_method->Value;
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
-            Google.Protobuf.CodedOutputStream instance_of_this_method = (Google.Protobuf.CodedOutputStream)typeof(Google.Protobuf.CodedOutputStream).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-            instance_of_this_method.WriteUInt64(@value);
-
-            return __ret;
-        }
-
-        static StackObject* WriteString_4(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* WriteString_1(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -144,7 +91,78 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* WriteEnum_5(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* ComputeStringSize_2(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.String @value = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+
+            var result_of_this_method = Google.Protobuf.CodedOutputStream.ComputeStringSize(@value);
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* WriteUInt32_3(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.UInt32 @value = (uint)ptr_of_this_method->Value;
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            Google.Protobuf.CodedOutputStream instance_of_this_method = (Google.Protobuf.CodedOutputStream)typeof(Google.Protobuf.CodedOutputStream).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            instance_of_this_method.WriteUInt32(@value);
+
+            return __ret;
+        }
+
+        static StackObject* ComputeUInt32Size_4(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.UInt32 @value = (uint)ptr_of_this_method->Value;
+
+
+            var result_of_this_method = Google.Protobuf.CodedOutputStream.ComputeUInt32Size(@value);
+
+            __ret->ObjectType = ObjectTypes.Integer;
+            __ret->Value = result_of_this_method;
+            return __ret + 1;
+        }
+
+        static StackObject* WriteUInt64_5(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        {
+            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
+            StackObject* ptr_of_this_method;
+            StackObject* __ret = ILIntepreter.Minus(__esp, 2);
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
+            System.UInt64 @value = *(ulong*)&ptr_of_this_method->Value;
+
+            ptr_of_this_method = ILIntepreter.Minus(__esp, 2);
+            Google.Protobuf.CodedOutputStream instance_of_this_method = (Google.Protobuf.CodedOutputStream)typeof(Google.Protobuf.CodedOutputStream).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
+            __intp.Free(ptr_of_this_method);
+
+            instance_of_this_method.WriteUInt64(@value);
+
+            return __ret;
+        }
+
+        static StackObject* WriteEnum_6(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -162,7 +180,7 @@ namespace ILRuntime.Runtime.Generated
             return __ret;
         }
 
-        static StackObject* ComputeUInt64Size_6(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
+        static StackObject* ComputeUInt64Size_7(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
         {
             ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
             StackObject* ptr_of_this_method;
@@ -173,24 +191,6 @@ namespace ILRuntime.Runtime.Generated
 
 
             var result_of_this_method = Google.Protobuf.CodedOutputStream.ComputeUInt64Size(@value);
-
-            __ret->ObjectType = ObjectTypes.Integer;
-            __ret->Value = result_of_this_method;
-            return __ret + 1;
-        }
-
-        static StackObject* ComputeStringSize_7(ILIntepreter __intp, StackObject* __esp, IList<object> __mStack, CLRMethod __method, bool isNewObj)
-        {
-            ILRuntime.Runtime.Enviorment.AppDomain __domain = __intp.AppDomain;
-            StackObject* ptr_of_this_method;
-            StackObject* __ret = ILIntepreter.Minus(__esp, 1);
-
-            ptr_of_this_method = ILIntepreter.Minus(__esp, 1);
-            System.String @value = (System.String)typeof(System.String).CheckCLRTypes(StackObject.ToObject(ptr_of_this_method, __domain, __mStack));
-            __intp.Free(ptr_of_this_method);
-
-
-            var result_of_this_method = Google.Protobuf.CodedOutputStream.ComputeStringSize(@value);
 
             __ret->ObjectType = ObjectTypes.Integer;
             __ret->Value = result_of_this_method;

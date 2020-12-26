@@ -25,6 +25,21 @@ public class ProtoBufferTool
         stream.Close();
         return default(IMessage);
     }
+
+    public static T DeserializeNew<T>(MessageParser _type, byte[] byteData) where T : IMessage
+    {
+        Stream stream = new MemoryStream(byteData);
+        IMessage message;
+        if (stream != null)
+        {
+            message = _type.ParseFrom(stream);
+            stream.Close();
+            return (T)message;
+        }
+        stream.Close();
+        return default(T);
+    }
+
     /// <summary>
     /// 序列化
     /// </summary>
