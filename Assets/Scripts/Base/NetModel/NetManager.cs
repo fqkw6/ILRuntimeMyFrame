@@ -58,7 +58,7 @@ public class NetManager :MonoSingleton<NetManager>
         send.WriteBytes(by);
 
         hjTcpNetwork.SendMessage(send.ToBytes());
-
+        Debug.LogError("fasongchangdu==="+send.ToBytes().Length);
     }
     public void Update()
     {

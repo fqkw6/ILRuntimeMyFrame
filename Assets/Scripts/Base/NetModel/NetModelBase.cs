@@ -14,8 +14,16 @@ public class NetModelBase
     public virtual void Register()
     {
         Debug.LogError("注册消息");
+        AddListening(10001, JieShouInfo);
     }
 
+    private void JieShouInfo(NetMessageBase obj)
+    {
+        Debug.LogError(obj.MessageId+ "obj.MessageId");
+        byte[] s = obj.MessageBoby.ToByteArray();
+        Role.role_info info= ProtoBufferTool.DeserializeNew<Role.role_info>(Role.role_info.Parser,s);
+        Debug.LogError(info.Name);
+    }
 
     public void AddListening(uint netEnum, Action<NetMessageBase> action)
     {

@@ -58,7 +58,7 @@ public class LoggerHelper : MonoSingleton<LoggerHelper>
     {
         Logger.CheckReportError();
     }
-    
+    Role.role_info role_Info1;
     private void Update()
     {
         lock (backList)
@@ -97,11 +97,24 @@ public class LoggerHelper : MonoSingleton<LoggerHelper>
         {
             HotFixMangager.instance.GetAppDomain().Invoke("HotFix_Project.HotManager", "StaticFunTest", null, null);
             Debug.LogError("ceshiA");
-            Role.role_info role_Info1 = new Role.role_info();
+            role_Info1 = new Role.role_info();
             role_Info1.Level = 15;
             role_Info1.Name = "woshi网";
             role_Info1.RoomId = 100;
             role_Info1.Score = 90;
+
+          
+
+          
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            UIMangager.Instance.RTYU();
+            UIMangager.Instance.RTYU2();
+            EventManager.SendMessage((int)10000);
+            // HotFixMangager.instance.GetAppDomain().Invoke("HotFix_Project.HotManager", "StaticFunTestClose", null, null);
+          
+            Debug.LogError("ceshiB");
 
             byte[] msg = ProtoBufferTool.Serialize(role_Info1);
             NetMessageBase netMessageBase = new NetMessageBase();
@@ -114,16 +127,7 @@ public class LoggerHelper : MonoSingleton<LoggerHelper>
             Role.role_info info1 = ProtoBufferTool.DeserializeNew<Role.role_info>(Role.role_info.Parser, newooo.MessageBoby.ToByteArray());
             Debug.LogError(info1.Name + "==info1.Name ==");
 
-            NetManager.Instance.Connect("127.0.0.1", 8088);
-        }
-        if (Input.GetMouseButtonDown(0))
-        {
-            UIMangager.Instance.RTYU();
-            UIMangager.Instance.RTYU2();
-            EventManager.SendMessage((int)10000);
-            // HotFixMangager.instance.GetAppDomain().Invoke("HotFix_Project.HotManager", "StaticFunTestClose", null, null);
-          
-            Debug.LogError("ceshiB");
+            NetManager.Instance.SendMessage(10001, msg);
 
         }
     }
