@@ -10,6 +10,7 @@ public delegate void Predicete<T,U>(T arg1,U arg2);
 
 public class EventManager 
 {
+   
     static public void AddListener(int eventType, Action handler)
     {
         EventCenter.AddListener(eventType,handler);

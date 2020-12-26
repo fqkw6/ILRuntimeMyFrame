@@ -8,7 +8,7 @@ using System;
 using ILRuntime.Runtime.Enviorment;
 using AssetBundles;
 using UnityEngine.Networking;
-
+using ILRuntime.Runtime.Intepreter;
 public class HotFixMangager : Singleton<HotFixMangager>
 {
 
@@ -56,22 +56,48 @@ public class HotFixMangager : Singleton<HotFixMangager>
         mAppDomain.DelegateManager.RegisterMethodDelegate<Adapt_IMessage.Adaptor>();
 
         mAppDomain.DelegateManager.RegisterFunctionDelegate<System.Int32, System.Int32>();
+       // mAppDomain.DelegateManager.RegisterFunctionDelegate<object>();
 
-        mAppDomain.DelegateManager.RegisterDelegateConvertor<EventCode.EventCallBack>((act) =>
-        {
-            return new EventCode.EventCallBack(() =>
+        ///热更工程里的类 对应Action<T> 热更里的泛型类为 ILTypeInstance
+        mAppDomain.DelegateManager.RegisterMethodDelegate<ILTypeInstance>();
+
+        /// 例子 注册委托
+        //    public delegate bool Predicete<T>(T arg);
+        //    public delegate void Predicete<T, U>(T arg1, U arg2);
+        mAppDomain.DelegateManager.RegisterDelegateConvertor<Predicete<ILTypeInstance>>((act) =>
             {
-                ((Action)act)();
+                return new Predicete<ILTypeInstance>((obj) =>
+                {
+                    return ((Func<ILTypeInstance, Boolean>)act)(obj);
+                });
+            });
+
+        mAppDomain.DelegateManager.RegisterDelegateConvertor<Predicete<ILTypeInstance, ILTypeInstance>>((act) =>
+        {
+            return new Predicete<ILTypeInstance, ILTypeInstance>((obj1, obj2) =>
+            {
+                ((Action<ILTypeInstance, ILTypeInstance>)act)(obj1, obj2);
             });
         });
-        mAppDomain.DelegateManager.RegisterDelegateConvertor<EventCode.EventCallBack>((act) =>
-        {
-            return new EventCode.EventCallBack<object>((obj) =>
-            {
-                ((Action<object>)act)(obj);
-            });
-        });
 
+        mAppDomain.DelegateManager.RegisterDelegateConvertor<global::Predicete<System.Int32>>((act) =>
+        {
+            return new global::Predicete<System.Int32>((arg) =>
+            {
+                return ((Func<System.Int32, System.Boolean>)act)(arg);
+            });
+        });        mAppDomain.DelegateManager.RegisterDelegateConvertor<global::Predicete<System.Int32, System.Int32>>((act) =>
+        {
+            return new global::Predicete<System.Int32, System.Int32>((arg1, arg2) =>
+            {
+                ((Action<System.Int32, System.Int32>)act)(arg1, arg2);
+            });
+        });
+
+        mAppDomain.DelegateManager.RegisterFunctionDelegate<System.Int32, System.Boolean>();
+        mAppDomain.DelegateManager.RegisterMethodDelegate<System.Int32, System.Int32>();
+        //类在主工程中，热更调用
+        mAppDomain.DelegateManager.RegisterMethodDelegate<global::Mu>();
     }
     /// <summary>
     /// 注册所有热更DLL中用到的跨域继承Adapter，否则无法正确抓取引用

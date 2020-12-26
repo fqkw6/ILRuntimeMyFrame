@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B94E2D0F-70CF-4914-AB16-3C18A9C7D62A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HotFix_Project</RootNamespace>
+    <AssemblyName>HotFix_Project</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>..\..\Library\ScriptAssemblies\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\..\DebuggerTool\UnityDlls\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>..\..\DebuggerTool\UnityDlls\UnityEngine.UIModule.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="HotFix\Code\Frame\HotManager.cs" />
+    <Compile Include="HotFix\Code\LoginPanel.cs" />
+    <Compile Include="HotFix\Code\ILUIManager.cs" />
+    <Compile Include="HotFix\Code\PanelName.cs" />
+    <Compile Include="HotFix\Code\UIPanelBase.cs" />
+    <Compile Include="HotFix\Data1\Chat.cs" />
+    <Compile Include="HotFix\Data1\Dumper.cs" />
+    <Compile Include="HotFix\Data1\Mase.cs" />
+    <Compile Include="HotFix\Data1\ReqGet.cs" />
+    <Compile Include="HotFix\Data1\TestPB.cs" />
+    <Compile Include="HotFix\Data\CSOutput\BufferCode\t_AuthorInfo10Buffer.cs" />
+    <Compile Include="HotFix\Data\CSOutput\BufferCode\t_AuthorInfo2Buffer.cs" />
+    <Compile Include="HotFix\Data\CSOutput\BufferCode\t_AuthorInfo3Buffer.cs" />
+    <Compile Include="HotFix\Data\CSOutput\BufferCode\t_AuthorInfo4Buffer.cs" />
+    <Compile Include="HotFix\Data\CSOutput\BufferCode\t_AuthorInfo5Buffer.cs" />
+    <Compile Include="HotFix\Data\CSOutput\BufferCode\t_AuthorInfo6Buffer.cs" />
+    <Compile Include="HotFix\Data\CSOutput\BufferCode\t_AuthorInfo7Buffer.cs" />
+    <Compile Include="HotFix\Data\CSOutput\BufferCode\t_AuthorInfo8Buffer.cs" />
+    <Compile Include="HotFix\Data\CSOutput\BufferCode\t_AuthorInfo9Buffer.cs" />
+    <Compile Include="HotFix\Data\CSOutput\BufferCode\t_AuthorInfoBuffer.cs" />
+    <Compile Include="HotFix\Data\CSOutput\BufferCode\t_Global10Buffer.cs" />
+    <Compile Include="HotFix\Data\CSOutput\BufferCode\t_Global2Buffer.cs" />
+    <Compile Include="HotFix\Data\CSOutput\BufferCode\t_Global3Buffer.cs" />
+    <Compile Include="HotFix\Data\CSOutput\BufferCode\t_Global4Buffer.cs" />
+    <Compile Include="HotFix\Data\CSOutput\BufferCode\t_Global5Buffer.cs" />
+    <Compile Include="HotFix\Data\CSOutput\BufferCode\t_Global6Buffer.cs" />
+    <Compile Include="HotFix\Data\CSOutput\BufferCode\t_Global7Buffer.cs" />
+    <Compile Include="HotFix\Data\CSOutput\BufferCode\t_Global8Buffer.cs" />
+    <Compile Include="HotFix\Data\CSOutput\BufferCode\t_Global9Buffer.cs" />
+    <Compile Include="HotFix\Data\CSOutput\BufferCode\t_GlobalBuffer.cs" />
+    <Compile Include="HotFix\Data\CSOutput\ClassCode\t_AuthorInfo.cs" />
+    <Compile Include="HotFix\Data\CSOutput\ClassCode\t_AuthorInfo10.cs" />
+    <Compile Include="HotFix\Data\CSOutput\ClassCode\t_AuthorInfo2.cs" />
+    <Compile Include="HotFix\Data\CSOutput\ClassCode\t_AuthorInfo3.cs" />
+    <Compile Include="HotFix\Data\CSOutput\ClassCode\t_AuthorInfo4.cs" />
+    <Compile Include="HotFix\Data\CSOutput\ClassCode\t_AuthorInfo5.cs" />
+    <Compile Include="HotFix\Data\CSOutput\ClassCode\t_AuthorInfo6.cs" />
+    <Compile Include="HotFix\Data\CSOutput\ClassCode\t_AuthorInfo7.cs" />
+    <Compile Include="HotFix\Data\CSOutput\ClassCode\t_AuthorInfo8.cs" />
+    <Compile Include="HotFix\Data\CSOutput\ClassCode\t_AuthorInfo9.cs" />
+    <Compile Include="HotFix\Data\CSOutput\ClassCode\t_Global.cs" />
+    <Compile Include="HotFix\Data\CSOutput\ClassCode\t_Global10.cs" />
+    <Compile Include="HotFix\Data\CSOutput\ClassCode\t_Global2.cs" />
+    <Compile Include="HotFix\Data\CSOutput\ClassCode\t_Global3.cs" />
+    <Compile Include="HotFix\Data\CSOutput\ClassCode\t_Global4.cs" />
+    <Compile Include="HotFix\Data\CSOutput\ClassCode\t_Global5.cs" />
+    <Compile Include="HotFix\Data\CSOutput\ClassCode\t_Global6.cs" />
+    <Compile Include="HotFix\Data\CSOutput\ClassCode\t_Global7.cs" />
+    <Compile Include="HotFix\Data\CSOutput\ClassCode\t_Global8.cs" />
+    <Compile Include="HotFix\Data\CSOutput\ClassCode\t_Global9.cs" />
+    <Compile Include="HotFix\Data\CSTemplateOutput\GameDataManager.cs" />
+    <Compile Include="HotFix\Data\CSTemplateOutput\t_AuthorInfo10Container.cs" />
+    <Compile Include="HotFix\Data\CSTemplateOutput\t_AuthorInfo2Container.cs" />
+    <Compile Include="HotFix\Data\CSTemplateOutput\t_AuthorInfo3Container.cs" />
+    <Compile Include="HotFix\Data\CSTemplateOutput\t_AuthorInfo4Container.cs" />
+    <Compile Include="HotFix\Data\CSTemplateOutput\t_AuthorInfo5Container.cs" />
+    <Compile Include="HotFix\Data\CSTemplateOutput\t_AuthorInfo6Container.cs" />
+    <Compile Include="HotFix\Data\CSTemplateOutput\t_AuthorInfo7Container.cs" />
+    <Compile Include="HotFix\Data\CSTemplateOutput\t_AuthorInfo8Container.cs" />
+    <Compile Include="HotFix\Data\CSTemplateOutput\t_AuthorInfo9Container.cs" />
+    <Compile Include="HotFix\Data\CSTemplateOutput\t_AuthorInfoContainer.cs" />
+    <Compile Include="HotFix\Data\CSTemplateOutput\t_Global10Container.cs" />
+    <Compile Include="HotFix\Data\CSTemplateOutput\t_Global2Container.cs" />
+    <Compile Include="HotFix\Data\CSTemplateOutput\t_Global3Container.cs" />
+    <Compile Include="HotFix\Data\CSTemplateOutput\t_Global4Container.cs" />
+    <Compile Include="HotFix\Data\CSTemplateOutput\t_Global5Container.cs" />
+    <Compile Include="HotFix\Data\CSTemplateOutput\t_Global6Container.cs" />
+    <Compile Include="HotFix\Data\CSTemplateOutput\t_Global7Container.cs" />
+    <Compile Include="HotFix\Data\CSTemplateOutput\t_Global8Container.cs" />
+    <Compile Include="HotFix\Data\CSTemplateOutput\t_Global9Container.cs" />
+    <Compile Include="HotFix\Data\CSTemplateOutput\t_GlobalContainer.cs" />
+    <Compile Include="HotFix\Test\InstanceClass.cs" />
+    <Compile Include="HotFix\Test\TestCLRBinding.cs" />
+    <Compile Include="HotFix\Test\TestCLRRedirection.cs" />
+    <Compile Include="HotFix\Test\TestCoroutine.cs" />
+    <Compile Include="HotFix\Test\TestDelegate.cs" />
+    <Compile Include="HotFix\Test\TestInheritance.cs" />
+    <Compile Include="HotFix\Test\TestJson.cs" />
+    <Compile Include="HotFix\Test\TestMonoBehaviour.cs" />
+    <Compile Include="HotFix\Test\TestValueType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\" />
+    <Folder Include="bin\Release\" />
+    <Folder Include="obj\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy /Y "$(TargetDir)$(ProjectName).dll" "$(ProjectDir)../../Assets\StreamingAssets\$(TargetName).awb"
+copy /Y "$(TargetDir)$(ProjectName).pdb" "$(ProjectDir)../../Assets\StreamingAssets\$(TargetName)_PDB.awb"
+copy /Y "$(TargetDir)$(ProjectName).dll" "$(ProjectDir)../../Assets\AssetsPackage\HfModule\$(TargetName).txt"
+copy /Y "$(TargetDir)$(ProjectName).pdb" "$(ProjectDir)../../Assets\AssetsPackage\HfModule\$(TargetName)_PDB.txt"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

@@ -26,6 +26,8 @@ public class UIMangager
             return instance;
         }
     }
+    public event Predicete<int> PrediceteEventTest1;
+    public event Predicete<int, int> PrediceteEventTest2;
     public  void LoadUI<T>(string realPath, string className, Transform parent,Action<T> callBack) where T : IViewBase
     {
         GameObject go = null;
@@ -66,6 +68,7 @@ public class UIMangager
             }
 
         });
+       
     }
     public void LoadUI<T>(string realPath, int num, string className, Action<List<T>> callBack) where T : IViewBase
     {
@@ -207,5 +210,15 @@ public class UIMangager
             return (T)viewBase;
         }
         return (T)viewBase;
+    }
+
+
+    public void RTYU()
+    {
+        PrediceteEventTest1(20);
+    }
+    public void RTYU2()
+    {
+        PrediceteEventTest2(20,109);
     }
 }

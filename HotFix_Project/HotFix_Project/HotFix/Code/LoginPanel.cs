@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using Message;
@@ -23,10 +24,10 @@ class LoginPanel : UIPanelBase
     public override void Start()
     {
         RawImage rawImage = FindComponent<RawImage>("BgRoot/BG");
+        UIMangager.Instance.PrediceteEventTest1 += TestKLKL;
+        UIMangager.Instance.PrediceteEventTest2 += tdddj;
         Debug.LogError(rawImage + "ceshi====");
         Debug.LogError(GetGameObject());
-
-       
 
         Role.ReqGet role_Info2 = new Role.ReqGet();
 
@@ -44,23 +45,49 @@ class LoginPanel : UIPanelBase
         Role.ReqGet info2 = ProtoBufferTool.Deserialize(Role.ReqGet.Parser, newooo.MessageBoby.ToByteArray()) as Role.ReqGet;
         Debug.LogError(info2.Name + "==info2.Name ==");
 
+        EventManager.SendMessage((int)10000);
+        EventManager.SendMessage<Yu>((int)20000, new Yu() {name="WangBadao" });
+        EventManager.SendMessage<Mu>((int)30000, new Mu() { name = "还记得" });
 
-
-        EventManager.SendMessage((int)ILEventName.LoginTest);
-        EventManager.SendMessage<Yu>((int)ILEventName.LoginTest2, new Yu() {name="WangBadao" });
     }
 
     public override void AddListener()
     {
-        EventManager.AddListener((int)ILEventName.LoginTest, TestCCallBack);
-        EventManager.AddListener<Yu>((int)ILEventName.LoginTest2, TestCCallBack);
+        EventManager.AddListener((int)10000, TestCCallBack);
+        EventManager.AddListener<Yu>((int)20000, TestCCallBack);
+      
+        EventManager.AddListener<Mu>((int)30000, TestCCallBack);
+     
     }
 
+    private void tdddj(int arg1, int arg2)
+    {
+        Debug.LogError("ecec=="+arg1+arg2);
+    }
+
+    private bool TestKLKL(int arg)
+    {
+        Debug.LogError(arg);
+        return arg > 10;
+    }
+
+    public override void RemoveListener()
+    {
+        base.RemoveListener();
+        EventManager.RemoveListener((int)10000, TestCCallBack);
+        EventManager.RemoveListener<Yu>((int)20000, TestCCallBack);
+        EventManager.RemoveListener<Mu>((int)30000, TestCCallBack);
+    }
     private void TestCCallBack(Yu arg1)
     {
-        Debug.LogError("收到" + arg1.name);
+        Debug.LogError("收到热更" + arg1.name);
     }
-
+    private void TestCCallBack(Mu arg1)
+    {
+        Debug.LogError("收到主工程" + arg1.name);
+        
+    }
+  
     private void TestCCallBack()
     {
         Debug.LogError("收到");

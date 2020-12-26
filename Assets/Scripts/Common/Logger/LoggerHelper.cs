@@ -118,6 +118,9 @@ public class LoggerHelper : MonoSingleton<LoggerHelper>
         }
         if (Input.GetMouseButtonDown(0))
         {
+            UIMangager.Instance.RTYU();
+            UIMangager.Instance.RTYU2();
+
             HotFixMangager.instance.GetAppDomain().Invoke("HotFix_Project.HotManager", "StaticFunTestClose", null, null);
 
             Debug.LogError("ceshiB");

@@ -129,8 +129,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1740084093}
-  - component: {fileID: 1740084092}
   - component: {fileID: 1740084094}
+  - component: {fileID: 1740084092}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1740084091}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c86c2a8be4cdb3468d89513b7b2a66c, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ccb429fd47afe94e865e80dc6df47e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1740084093
@@ -173,6 +173,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1740084091}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0abed6da408434a4898ebabf74fff8f6, type: 3}
+  m_Script: {fileID: 11500000, guid: 4b60f3cde24d24f46937dece545c900b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
