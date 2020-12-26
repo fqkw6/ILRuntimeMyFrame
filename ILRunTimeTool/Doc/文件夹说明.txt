@@ -1,0 +1,9 @@
+AssetBundles 为 Bundles 资源文件夹
+Channel 为安卓工程
+Doc 帮助说明
+ExcelToCSTool 导表工具
+HotFix_Project 热更工程
+ILRunTimeTool 平时用的工具（
+包括类库，link ,调试工具，导表工具源码，AssetBundleServer (本地Build 服务器)）
+protobuf3.4.1Tool 为protobuf3 工具
+SeverFram 简单的服务器工程

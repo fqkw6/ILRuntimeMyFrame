@@ -103,15 +103,15 @@ public class LoggerHelper : MonoSingleton<LoggerHelper>
             role_Info1.RoomId = 100;
             role_Info1.Score = 90;
 
-          
+       
 
-          
+
         }
         if (Input.GetMouseButtonDown(0))
         {
             UIMangager.Instance.RTYU();
             UIMangager.Instance.RTYU2();
-            EventManager.SendMessage((int)10000);
+            
             // HotFixMangager.instance.GetAppDomain().Invoke("HotFix_Project.HotManager", "StaticFunTestClose", null, null);
           
             Debug.LogError("ceshiB");

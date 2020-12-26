@@ -44,8 +44,8 @@ class LoginPanel : UIPanelBase
         Debug.LogError(newooo.MessageId + "==newooo.MessageId==");
         Role.ReqGet info2 = ProtoBufferTool.DeserializeNew<Role.ReqGet>(Role.ReqGet.Parser, newooo.MessageBoby.ToByteArray());
         Debug.LogError(info2.Name + "==info2.Name ==");
+        EventManager.SendMessage((int)10000);
 
-      
         EventManager.SendMessage<Yu>((int)20000, new Yu() {name="WangBadao" });
         EventManager.SendMessage<Mu>((int)30000, new Mu() { name = "还记得" });
         Debug.LogError(Parent + "==Parent=");
