@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using UnityEditor;
 using UnityEngine;
-
+#if UNITY_EDITOR
 public class CreateSpriteUnit
 {
     public string classname;
@@ -84,3 +84,4 @@ public class UIInfo
         body2 = string.Format("{0} = null;", name);
     }
 }
+#endif

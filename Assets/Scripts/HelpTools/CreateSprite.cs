@@ -4,6 +4,7 @@ using System.Text;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+#if UNITY_EDITOR
 public class CreateSprite
 {
     //当前操作的对象
@@ -41,6 +42,7 @@ public class CreateSprite
             EditorUtility.DisplayDialog("警告", "你只能选择一个GameObject", "确定");
         }
     }
+
     //遍历所有子对象，GetChild方法只能获取第一层子对象。
     public static void ReadChild(Transform tf)
     {
@@ -77,3 +79,4 @@ public class CreateSprite
         return buffer.ToString();
     }
 }
+#endif
