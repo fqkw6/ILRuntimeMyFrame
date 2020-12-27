@@ -364,14 +364,13 @@ public class BatchesText : MonoBehaviour
 
         var vertsl = textGenerator.verts;
         int orgCount = vertsl.Count;
-        Debug.LogError(orgCount+"==ccccc");
         verts.AddRange(vertsl);
         if (m_ShadowOpen)
         {
             ApplyShadowZeroAlloc(verts,ConstColor,0,vertsl.Count,m_ShdowOffX,m_ShdowOffY);
         }
 
-        var vertCount = verts.Count - 4;
+        var vertCount = verts.Count - 0;//原版2017.4.39  verts.Count -4
 
         Vector3[] vertices = new Vector3[vertCount];
         Vector2[] uv = new Vector2[vertCount];
